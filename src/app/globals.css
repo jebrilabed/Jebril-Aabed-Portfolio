@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #131318;
+  --color-foreground: #e4e1e9;
+  
+  --color-primary: #c4c0ff;
+  --color-primary-container: #8781ff;
+  --color-on-primary-container: #1b0091;
+  
+  --color-secondary: #a2e7ff;
+  --color-secondary-fixed-dim: #3cd7ff;
+  
+  --color-surface-lowest: #0e0e13;
+  --color-surface-low: #1b1b20;
+  --color-surface: #131318;
+  --color-surface-container: #1f1f25;
+  --color-surface-high: #2a292f;
+  --color-surface-highest: #35343a;
+  
+  --color-on-surface-variant: #c7c4d8;
+  --color-outline-variant: rgba(70, 69, 85, 0.15);
+  
+  --font-headline: var(--font-manrope);
+  --font-body: var(--font-inter);
+  --font-label: var(--font-space-grotesk);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground font-body antialiased selection:bg-primary/30;
+  }
+}
+
+@layer components {
+  .neon-grid {
+    background-image: 
+        linear-gradient(to right, rgba(196, 192, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(196, 192, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 15px rgba(196, 192, 255, 0.4);
+  }
+
+  .glass-panel {
+    background: rgba(19, 19, 24, 0.6);
+    backdrop-filter: blur(20px);
+  }
+
+  .metallic-glow {
+    background: linear-gradient(135deg, #c4c0ff 0%, #8781ff 100%);
+  }
+  
+  .premium-ease {
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .animate-blink {
+    animation: blink 1s step-start infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
