@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-28"
+      className="py-12 md:py-20 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden"
     >
       <div className="flex items-center justify-between mb-12">
         <h2 className="font-headline text-4xl font-bold uppercase tracking-tight">

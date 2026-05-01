@@ -74,7 +74,7 @@ export default function Contact() {
   const isLoading = status === "loading";
 
   return (
-    <section id="contact" className="py-12 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-28">
+    <section id="contact" className="py-12 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}

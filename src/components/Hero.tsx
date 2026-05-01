@@ -48,7 +48,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden neon-grid pt-20"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden neon-grid pt-20 pb-32 md:pb-20"
     >
       {/* Radial Glow Backlight */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />

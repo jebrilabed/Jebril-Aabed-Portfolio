@@ -8,7 +8,7 @@ export default function Intel() {
   const certificates = portfolioData.education.filter(item => item.type === "certificate");
 
   return (
-    <section id="intel" className="py-12 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-28">
+    <section id="intel" className="py-12 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden">
       <div className="mb-24">
         <h2 className="font-headline text-6xl md:text-8xl font-extrabold tracking-[-0.04em] mb-4 uppercase">
           Intel <span className="text-secondary drop-shadow-[0_0_15px_rgba(162,231,255,0.3)]">Storage</span>
