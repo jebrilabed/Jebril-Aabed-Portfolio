@@ -76,7 +76,7 @@ export default function About() {
             {/* Actions Row */}
             <div className="mt-12 flex flex-wrap items-center gap-8">
               <a
-                href="/cv.pdf"
+                href="/Jebril-Aabed-CV.pdf"
                 download="Jebril-Aabed-CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"

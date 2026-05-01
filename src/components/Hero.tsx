@@ -79,9 +79,7 @@ export default function Hero() {
           transition={{ delay: 0.5, duration: 1 }}
           className="font-body text-xl md:text-2xl text-on-surface-variant mb-12 max-w-2xl mx-auto opacity-80 leading-relaxed"
         >
-          Crafting{" "}
-          <span className="text-secondary italic">high-performance</span> digital
-          architectures and modern web solutions for the next generation.
+          Building <span className="text-secondary italic">fast, scalable, and visually engaging</span> web applications using modern frontend technologies.
         </motion.p>
 
         <motion.div
