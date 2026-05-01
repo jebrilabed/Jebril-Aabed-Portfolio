@@ -74,7 +74,7 @@ export default function Contact() {
   const isLoading = status === "loading";
 
   return (
-    <section id="contact" className="py-24 md:py-40 px-6 max-w-7xl mx-auto scroll-mt-28">
+    <section id="contact" className="py-12 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-28">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -82,10 +82,11 @@ export default function Contact() {
           viewport={{ once: true }}
         >
           <h2 className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">
-            Start An <br /> <span className="text-primary italic">Uplink</span>.
+            Start a<br /> <span className="text-primary italic">Conversation</span>.
           </h2>
           <p className="text-on-surface-variant text-xl leading-relaxed mb-12 max-w-md">
-            Have a project in mind or just want to say hi? My frequency is always open for interesting collaborations.
+            Have a project in mind or just want to connect?
+            I’m open to new opportunities, collaborations, and creative ideas.
           </p>
 
           <div className="space-y-6">
@@ -94,7 +95,7 @@ export default function Contact() {
                 <span className="material-symbols-outlined text-primary">mail</span>
               </div>
               <div>
-                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">Email Signal</p>
+                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">Email</p>
                 <p className="text-foreground font-medium group-hover:text-primary transition-colors">
                   {portfolioData.email}
                 </p>
@@ -106,7 +107,7 @@ export default function Contact() {
                 <span className="material-symbols-outlined text-secondary">hub</span>
               </div>
               <div>
-                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">LinkedIn Node</p>
+                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">LinkedIn</p>
                 <p className="text-foreground font-medium group-hover:text-secondary transition-colors">
                   Jebril Aabed
                 </p>
@@ -127,13 +128,12 @@ export default function Contact() {
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Identity</label>
+                <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Full Name</label>
                 <input
                   type="text"
                   placeholder="Your Name"
-                  className={`w-full bg-surface-low border ${
-                    errors.name ? "border-red-500/50" : "border-outline-variant"
-                  } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none`}
+                  className={`w-full bg-surface-low border ${errors.name ? "border-red-500/50" : "border-outline-variant"
+                    } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none`}
                   disabled={isLoading}
                   onChange={(e) => handleChange("name", e.target.value)}
                   value={form.name}
@@ -141,13 +141,12 @@ export default function Contact() {
                 {errors.name && <p className="text-red-400 text-xs mt-1 ml-1 font-label">{errors.name}</p>}
               </div>
               <div className="space-y-2">
-                <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Comms Path</label>
+                <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Email Address</label>
                 <input
                   type="email"
                   placeholder="Email Address"
-                  className={`w-full bg-surface-low border ${
-                    errors.email ? "border-red-500/50" : "border-outline-variant"
-                  } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none`}
+                  className={`w-full bg-surface-low border ${errors.email ? "border-red-500/50" : "border-outline-variant"
+                    } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none`}
                   value={form.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   disabled={isLoading}
@@ -156,13 +155,12 @@ export default function Contact() {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Signal Content</label>
+              <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Message</label>
               <textarea
                 rows={4}
                 placeholder="Message..."
-                className={`w-full bg-surface-low border ${
-                  errors.message ? "border-red-500/50" : "border-outline-variant"
-                } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none resize-none`}
+                className={`w-full bg-surface-low border ${errors.message ? "border-red-500/50" : "border-outline-variant"
+                  } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none resize-none`}
                 value={form.message}
                 onChange={(e) => handleChange("message", e.target.value)}
                 disabled={isLoading}
@@ -189,7 +187,7 @@ export default function Contact() {
                   <span className="material-symbols-outlined text-lg">check_circle</span> Signal Sent!
                 </>
               ) : (
-                <>Send Transmission</>
+                <>Send Message</>
               )}
             </button>
           </form>

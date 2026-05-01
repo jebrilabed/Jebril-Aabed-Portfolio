@@ -33,7 +33,7 @@ const doubledTools = [...toolsList, ...toolsList, ...toolsList];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 md:py-40 overflow-hidden scroll-mt-28">
+    <section id="skills" className="py-12 md:py-20 overflow-hidden scroll-mt-28">
       {/* ── Header ── */}
       <div className="px-6 md:px-12 max-w-7xl mx-auto mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="max-w-2xl">
@@ -44,7 +44,7 @@ export default function Skills() {
             transition={{ duration: 0.5 }}
             className="font-label text-secondary-fixed-dim text-xs tracking-[0.2em] uppercase mb-4"
           >
-            Core Competencies
+            SKILLS & TECHNOLOGIES
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -53,9 +53,9 @@ export default function Skills() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight text-foreground leading-none uppercase"
           >
-            Engineering <br />
+            PIXEL PERFECT   <br />
             <span className="text-primary drop-shadow-[0_0_15px_rgba(196,192,255,0.3)]">
-              The Future
+              EXPERIENCES
             </span>
           </motion.h2>
         </div>
@@ -67,10 +67,10 @@ export default function Skills() {
           className="text-right hidden md:block"
         >
           <p className="font-label text-on-surface-variant text-[10px] tracking-widest uppercase">
-            System Status
+            STATUS:
           </p>
           <p className="text-secondary font-label text-sm tracking-widest">
-            99.9% OPERATIONAL
+            AVAILABLE FOR WORK
           </p>
         </motion.div>
       </div>
@@ -170,7 +170,7 @@ export default function Skills() {
       >
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-outline-variant to-transparent" />
         <span className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant">
-          Architecture & Cloud Ecosystem
+          Technologies and practices for building scalable, modern web applications
         </span>
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-outline-variant to-transparent" />
       </motion.div>

@@ -8,7 +8,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="bg-surface-lowest py-24 md:py-40 relative overflow-hidden scroll-mt-28"
+      className="bg-surface-lowest py-12 md:py-20 relative overflow-hidden scroll-mt-28"
     >
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
