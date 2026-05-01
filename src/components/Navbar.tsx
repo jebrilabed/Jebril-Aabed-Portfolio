@@ -94,16 +94,7 @@ export default function Navbar() {
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-4 z-50"
         >
-          <a href="#home" className="group flex items-center gap-3">
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 bg-primary/20 rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
-              <div className="absolute inset-0 bg-primary rounded-xl group-hover:-rotate-6 transition-transform duration-500 shadow-[0_0_20px_rgba(196,192,255,0.4)]"></div>
-              <div className="relative font-headline font-black text-background text-lg tracking-tighter flex items-center justify-center">
-                <span className="translate-x-0.5">J</span>
-                <span className="text-[10px] opacity-50 mx-px mt-1">&</span>
-                <span className="-translate-x-0.5">A</span>
-              </div>
-            </div>
+          <a href="#home" className="group flex items-center gap-2">
             <h1 className="text-xl font-bold tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(196,192,255,0.4)] font-headline uppercase whitespace-nowrap hidden sm:block">
               {portfolioData.name}
             </h1>
