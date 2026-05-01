@@ -33,7 +33,7 @@ const doubledTools = [...toolsList, ...toolsList, ...toolsList];
 
 export default function Skills() {
   return (
-    <section id="intel" className="py-24 md:py-40 overflow-hidden">
+    <section id="skills" className="py-24 md:py-40 overflow-hidden scroll-mt-28">
       {/* ── Header ── */}
       <div className="px-6 md:px-12 max-w-7xl mx-auto mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
         <div className="max-w-2xl">

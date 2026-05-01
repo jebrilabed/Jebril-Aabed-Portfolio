@@ -11,7 +11,7 @@ export default function Footer() {
             {portfolioData.name.toUpperCase()}
           </span>
           <p className="text-on-surface-variant font-label text-[10px] tracking-widest mt-2 uppercase opacity-50">
-            © 2026 The Galactic Archive. All rights reserved.
+            © 2026 Jebril Aabed. Built with Next.js & Tailwind CSS
           </p>
         </div>
 

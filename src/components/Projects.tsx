@@ -8,19 +8,24 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-24 md:py-40 px-6 md:px-12 max-w-7xl mx-auto"
+      className="py-24 md:py-40 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-28"
     >
       <div className="flex items-center justify-between mb-12">
         <h2 className="font-headline text-4xl font-bold uppercase tracking-tight">
           Featured Work
         </h2>
         <div className="h-px flex-1 bg-outline-variant/20 mx-8 hidden md:block"></div>
-        <button className="font-label text-secondary text-xs tracking-widest hover:translate-x-2 transition-transform premium-ease flex items-center gap-2 uppercase">
+        <a
+          href={`${portfolioData.socials.github}?tab=repositories`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-label text-secondary text-xs tracking-widest hover:translate-x-2 transition-transform premium-ease flex items-center gap-2 uppercase"
+        >
           View Archive{" "}
           <span className="material-symbols-outlined text-sm">
             arrow_forward
           </span>
-        </button>
+        </a>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
