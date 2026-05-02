@@ -11,35 +11,47 @@ function TypewriterText({ text }: { text: string }) {
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
 
-    if (phase === "typing") {
-      if (displayed.length < text.length) {
-        timeout = setTimeout(() => {
+    const handleTick = () => {
+      if (phase === "typing") {
+        if (displayed.length < text.length) {
           setDisplayed(text.slice(0, displayed.length + 1));
-        }, 80);
-      } else {
-        // Finished typing → wait before deleting
-        timeout = setTimeout(() => setPhase("waiting"), 2000);
-      }
-    } else if (phase === "waiting") {
-      timeout = setTimeout(() => setPhase("deleting"), 200);
-    } else if (phase === "deleting") {
-      if (displayed.length > 0) {
-        timeout = setTimeout(() => {
+        } else {
+          timeout = setTimeout(() => setPhase("waiting"), 2000);
+          return;
+        }
+      } else if (phase === "waiting") {
+        setPhase("deleting");
+        return;
+      } else if (phase === "deleting") {
+        if (displayed.length > 0) {
           setDisplayed(displayed.slice(0, -1));
-        }, 45);
-      } else {
-        // Finished deleting → start typing again
-        timeout = setTimeout(() => setPhase("typing"), 600);
+        } else {
+          timeout = setTimeout(() => setPhase("typing"), 600);
+          return;
+        }
       }
-    }
+      
+      const delay = phase === "typing" ? 80 : 45;
+      timeout = setTimeout(handleTick, delay);
+    };
 
+    handleTick();
     return () => clearTimeout(timeout);
   }, [displayed, phase, text]);
 
   return (
-    <span className="text-primary glow-text relative inline-block">
-      {displayed}
-      <span className="inline-block w-[3px] h-[0.85em] ml-1 align-middle rounded-sm bg-primary animate-blink" />
+    <span className="relative inline-block align-top">
+      {/* Invisible placeholder: reserves the EXACT space for the full phrase */}
+      <span className="invisible pointer-events-none select-none" aria-hidden="true">
+        {text}
+        <span className="inline-block w-[3px] ml-1" />
+      </span>
+      
+      {/* Visible typing text */}
+      <span className="absolute left-0 top-0 text-primary glow-text whitespace-nowrap">
+        {displayed}
+        <span className="inline-block w-[3px] h-[0.85em] ml-1 align-middle rounded-sm bg-primary animate-blink" />
+      </span>
     </span>
   );
 }
@@ -70,7 +82,7 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="font-headline text-5xl md:text-8xl font-extrabold tracking-[-0.04em] mb-4 text-foreground max-w-5xl mx-auto leading-tight"
         >
-          Hello, I&apos;m <TypewriterText text={portfolioData.name} />
+          <TypewriterText text={`Hello, I am ${portfolioData.name}`} />
         </motion.h2>
 
         <motion.p

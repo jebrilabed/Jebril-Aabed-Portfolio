@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   description: "Jebril Aabed is a Frontend Developer specialized in building responsive and modern web applications using React and Next.js.",
 };
 
+import DevelopmentNotice from "@/components/DevelopmentNotice";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,6 +35,7 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
       </head>
       <body className={`${manrope.variable} ${inter.variable} ${spaceGrotesk.variable} min-h-full flex flex-col bg-background text-foreground overflow-x-hidden`}>
+        <DevelopmentNotice />
         {children}
       </body>
     </html>
