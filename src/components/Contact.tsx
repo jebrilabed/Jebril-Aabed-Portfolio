@@ -91,27 +91,39 @@ export default function Contact() {
 
           <div className="space-y-6">
             <div className="flex items-center gap-4 group cursor-pointer">
-              <div className="p-3 bg-surface-low rounded-lg group-hover:bg-primary/20 transition-colors">
-                <span className="material-symbols-outlined text-primary">mail</span>
+              <div className="p-3 bg-surface-low rounded-lg group-hover:bg-[#ffb4ab]/20 transition-colors">
+                <span className="material-symbols-outlined text-[#ffb4ab]">mail</span>
               </div>
-              <div>
+              <a href={`https://mail.google.com/mail/?view=cm&to=${portfolioData.email}`} target="_blank" rel="noopener noreferrer">
                 <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">Email</p>
-                <p className="text-foreground font-medium group-hover:text-primary transition-colors">
+                <p className="text-foreground font-medium group-hover:text-[#ffb4ab] transition-colors">
                   {portfolioData.email}
                 </p>
-              </div>
+              </a>
             </div>
 
             <div className="flex items-center gap-4 group cursor-pointer">
               <div className="p-3 bg-surface-low rounded-lg group-hover:bg-secondary/20 transition-colors">
                 <span className="material-symbols-outlined text-secondary">hub</span>
               </div>
-              <div>
+              <a href={portfolioData.socials.linkedin} target="_blank" rel="noopener noreferrer">
                 <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">LinkedIn</p>
                 <p className="text-foreground font-medium group-hover:text-secondary transition-colors">
                   Jebril Aabed
                 </p>
+              </a>
+            </div>
+
+            <div className="flex items-center gap-4 group cursor-pointer">
+              <div className="p-3 bg-surface-low rounded-lg group-hover:bg-[#b4f0ad]/20 transition-colors">
+                <span className="material-symbols-outlined text-[#b4f0ad]">chat</span>
               </div>
+              <a href={portfolioData.socials.whatsapp} target="_blank" rel="noopener noreferrer">
+                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">WhatsApp</p>
+                <p className="text-foreground font-medium group-hover:text-[#b4f0ad] transition-colors">
+                  Message Me
+                </p>
+              </a>
             </div>
           </div>
         </motion.div>

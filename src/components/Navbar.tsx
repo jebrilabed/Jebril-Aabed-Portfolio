@@ -250,6 +250,13 @@ export default function Navbar() {
                     >
                       LinkedIn
                     </a>
+                    <a
+                      href={portfolioData.socials.whatsapp}
+                      target="_blank"
+                      className="text-foreground hover:text-secondary transition-colors font-label text-xs uppercase tracking-widest"
+                    >
+                      WhatsApp
+                    </a>
                   </div>
                 </div>
                 <div>
@@ -257,8 +264,9 @@ export default function Navbar() {
                     Email
                   </p>
                   <a
-                    href={`mailto:${portfolioData.email}`}
+                    href={`https://mail.google.com/mail/?view=cm&to=${portfolioData.email}`}
                     className="text-foreground hover:text-primary transition-colors font-label text-xs break-all"
+                    target="_blank"
                   >
                     {portfolioData.email}
                   </a>

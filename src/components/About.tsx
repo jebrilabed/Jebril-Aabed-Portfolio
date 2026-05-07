@@ -27,6 +27,7 @@ export default function About() {
                 src="/My-Photo.jpeg"
                 alt="Jebril Aabed"
                 fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="object-cover grayscale group-hover:grayscale-0 scale-110 group-hover:scale-100 transition-all duration-1000 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-700"></div>
