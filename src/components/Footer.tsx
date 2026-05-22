@@ -1,5 +1,3 @@
-"use client";
-
 import { portfolioData } from "@/data/portfolio";
 
 export default function Footer() {
@@ -43,8 +41,8 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col items-center md:items-end">
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <a
+            href="#home"
             className="group flex flex-col items-center gap-1"
             aria-label="Scroll back to top"
           >
@@ -54,7 +52,7 @@ export default function Footer() {
             <span className="font-label text-[8px] tracking-[0.3em] uppercase opacity-30">
               Back to Top
             </span>
-          </button>
+          </a>
         </div>
       </div>
     </footer>
