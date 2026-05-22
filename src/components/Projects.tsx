@@ -41,9 +41,10 @@ export default function Projects() {
             <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-surface-container mb-6 shadow-2xl">
               <Image
                 src={project.image}
-                alt={project.name}
+                alt={`${project.name} - Project Screenshot`}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                priority={index < 2}
                 className="object-cover transition-transform duration-700 premium-ease group-hover:scale-110"
               />
 
@@ -74,9 +75,11 @@ export default function Projects() {
                   <a
                     href={project.githubLink}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-on-primary-container transition-all active:scale-90"
+                    aria-label={`View ${project.name} source code on GitHub`}
                   >
-                    <span className="material-symbols-outlined text-lg">
+                    <span className="material-symbols-outlined text-lg" aria-hidden="true">
                       code
                     </span>
                   </a>
@@ -85,9 +88,11 @@ export default function Projects() {
                   <a
                     href={project.liveDemo}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-secondary hover:text-background transition-all active:scale-90"
+                    aria-label={`Visit ${project.name} live demo`}
                   >
-                    <span className="material-symbols-outlined text-lg">
+                    <span className="material-symbols-outlined text-lg" aria-hidden="true">
                       open_in_new
                     </span>
                   </a>

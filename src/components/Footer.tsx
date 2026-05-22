@@ -20,6 +20,7 @@ export default function Footer() {
             href={portfolioData.socials.github}
             target="_blank"
             className="text-on-surface-variant hover:text-primary transition-colors"
+            aria-label="Visit Jebril Aabed's GitHub profile"
           >
             Github
           </a>
@@ -27,6 +28,7 @@ export default function Footer() {
             href={portfolioData.socials.linkedin}
             target="_blank"
             className="text-on-surface-variant hover:text-secondary transition-colors"
+            aria-label="Visit Jebril Aabed's LinkedIn profile"
           >
             LinkedIn
           </a>
@@ -34,6 +36,7 @@ export default function Footer() {
             href={portfolioData.socials.whatsapp}
             target="_blank"
             className="text-on-surface-variant hover:text-primary transition-colors"
+            aria-label="Message Jebril Aabed on WhatsApp"
           >
             WhatsApp
           </a>
@@ -43,8 +46,9 @@ export default function Footer() {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="group flex flex-col items-center gap-1"
+            aria-label="Scroll back to top"
           >
-            <span className="material-symbols-outlined text-primary group-hover:-translate-y-1 transition-transform">
+            <span className="material-symbols-outlined text-primary group-hover:-translate-y-1 transition-transform" aria-hidden="true">
               expand_less
             </span>
             <span className="font-label text-[8px] tracking-[0.3em] uppercase opacity-30">

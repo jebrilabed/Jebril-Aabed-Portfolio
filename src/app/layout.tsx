@@ -18,8 +18,63 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Jebril Aabed | Frontend Developer",
+  metadataBase: new URL("https://jebril-aabed-portfolio.vercel.app"),
+  title: {
+    default: "Jebril Aabed | Frontend Developer",
+    template: "%s | Jebril Aabed",
+  },
   description: "Jebril Aabed is a Frontend Developer specialized in building responsive and modern web applications using React and Next.js.",
+  keywords: [
+    "Frontend Developer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Web Developer",
+    "Portfolio",
+    "Jebril Aabed"
+  ],
+  authors: [{ name: "Jebril Aabed", url: "https://jebril-aabed-portfolio.vercel.app" }],
+  creator: "Jebril Aabed",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://jebril-aabed-portfolio.vercel.app",
+    title: "Jebril Aabed | Frontend Developer",
+    description: "Jebril Aabed is a Frontend Developer specialized in building responsive and modern web applications using React and Next.js.",
+    siteName: "Jebril Aabed Portfolio",
+    images: [
+      {
+        url: "/projects/protofolio.png",
+        width: 1200,
+        height: 630,
+        alt: "Jebril Aabed - Frontend Developer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jebril Aabed | Frontend Developer",
+    description: "Jebril Aabed is a Frontend Developer specialized in building responsive and modern web applications using React and Next.js.",
+    images: ["/projects/protofolio.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://jebril-aabed-portfolio.vercel.app",
+  },
+  verification: {
+    google: "google-site-verification-code", // Placeholder for GSC
+  },
 };
 
 import DevelopmentNotice from "@/components/DevelopmentNotice";

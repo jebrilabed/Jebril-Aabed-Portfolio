@@ -94,7 +94,7 @@ export default function Contact() {
               <div className="p-3 bg-surface-low rounded-lg group-hover:bg-[#ffb4ab]/20 transition-colors">
                 <span className="material-symbols-outlined text-[#ffb4ab]">mail</span>
               </div>
-              <a href={`https://mail.google.com/mail/?view=cm&to=${portfolioData.email}`} target="_blank" rel="noopener noreferrer">
+              <a href={`https://mail.google.com/mail/?view=cm&to=${portfolioData.email}`} target="_blank" rel="noopener noreferrer" aria-label="Send an email to Jebril Aabed">
                 <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">Email</p>
                 <p className="text-foreground font-medium group-hover:text-[#ffb4ab] transition-colors">
                   {portfolioData.email}
@@ -106,7 +106,7 @@ export default function Contact() {
               <div className="p-3 bg-surface-low rounded-lg group-hover:bg-secondary/20 transition-colors">
                 <span className="material-symbols-outlined text-secondary">hub</span>
               </div>
-              <a href={portfolioData.socials.linkedin} target="_blank" rel="noopener noreferrer">
+              <a href={portfolioData.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visit Jebril Aabed's LinkedIn profile">
                 <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">LinkedIn</p>
                 <p className="text-foreground font-medium group-hover:text-secondary transition-colors">
                   Jebril Aabed
@@ -118,7 +118,7 @@ export default function Contact() {
               <div className="p-3 bg-surface-low rounded-lg group-hover:bg-[#b4f0ad]/20 transition-colors">
                 <span className="material-symbols-outlined text-[#b4f0ad]">chat</span>
               </div>
-              <a href={portfolioData.socials.whatsapp} target="_blank" rel="noopener noreferrer">
+              <a href={portfolioData.socials.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Message Jebril Aabed on WhatsApp">
                 <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">WhatsApp</p>
                 <p className="text-foreground font-medium group-hover:text-[#b4f0ad] transition-colors">
                   Message Me

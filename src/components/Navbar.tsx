@@ -240,6 +240,7 @@ export default function Navbar() {
                       href={portfolioData.socials.github}
                       target="_blank"
                       className="text-foreground hover:text-primary transition-colors font-label text-xs uppercase tracking-widest"
+                      aria-label="Visit Jebril Aabed's GitHub profile"
                     >
                       GitHub
                     </a>
@@ -247,6 +248,7 @@ export default function Navbar() {
                       href={portfolioData.socials.linkedin}
                       target="_blank"
                       className="text-foreground hover:text-secondary transition-colors font-label text-xs uppercase tracking-widest"
+                      aria-label="Visit Jebril Aabed's LinkedIn profile"
                     >
                       LinkedIn
                     </a>
@@ -254,6 +256,7 @@ export default function Navbar() {
                       href={portfolioData.socials.whatsapp}
                       target="_blank"
                       className="text-foreground hover:text-secondary transition-colors font-label text-xs uppercase tracking-widest"
+                      aria-label="Message Jebril Aabed on WhatsApp"
                     >
                       WhatsApp
                     </a>

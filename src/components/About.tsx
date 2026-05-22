@@ -46,10 +46,10 @@ export default function About() {
             viewport={{ once: true }}
             className="lg:col-span-7 flex flex-col h-full"
           >
-            <h3 className="font-headline text-4xl md:text-6xl font-bold tracking-tighter mb-8 text-foreground">
+            <h2 className="font-headline text-4xl md:text-6xl font-bold tracking-tighter mb-8 text-foreground">
               The Developer Behind <br />
               The <span className="text-secondary">Code</span>.
-            </h3>
+            </h2>
             <div className="space-y-6 text-lg text-on-surface-variant leading-relaxed max-w-2xl">
               <p>{portfolioData.bio}</p>
             </div>
@@ -82,8 +82,9 @@ export default function About() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-8 py-4 bg-surface-high hover:bg-surface-highest text-foreground font-label font-bold tracking-widest uppercase rounded-lg border-t border-primary/10 transition-all duration-300 cursor-pointer"
+                aria-label="Download Jebril Aabed's CV"
               >
-                <span className="material-symbols-outlined text-secondary">
+                <span className="material-symbols-outlined text-secondary" aria-hidden="true">
                   download
                 </span>
                 Download CV
@@ -95,22 +96,25 @@ export default function About() {
                   rel="noopener noreferrer"
                   className="p-3 rounded-full bg-surface-container hover:text-primary cursor-pointer transition-all hover:bg-surface-high border border-outline-variant/10"
                   title="GitHub"
+                  aria-label="Visit Jebril Aabed's GitHub profile"
                 >
-                  <span className="material-symbols-outlined text-lg">terminal</span>
+                  <span className="material-symbols-outlined text-lg" aria-hidden="true">terminal</span>
                 </a>
                 <a
                   href="#projects"
                   className="p-3 rounded-full bg-surface-container hover:text-secondary cursor-pointer transition-all hover:bg-surface-high border border-outline-variant/10"
                   title="View Projects"
+                  aria-label="Scroll to Projects section"
                 >
-                  <span className="material-symbols-outlined text-lg">rocket_launch</span>
+                  <span className="material-symbols-outlined text-lg" aria-hidden="true">rocket_launch</span>
                 </a>
                 <a
                   href="#skills"
                   className="p-3 rounded-full bg-surface-container hover:text-primary cursor-pointer transition-all hover:bg-surface-high border border-outline-variant/10"
                   title="Technical Skills"
+                  aria-label="Scroll to Skills section"
                 >
-                  <span className="material-symbols-outlined text-lg">psychology</span>
+                  <span className="material-symbols-outlined text-lg" aria-hidden="true">psychology</span>
                 </a>
               </div>
             </div>
