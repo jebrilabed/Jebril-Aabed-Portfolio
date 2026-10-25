@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";
 import { useState, useEffect, useRef } from "react";
 
@@ -19,6 +19,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,14 +89,24 @@ export default function Navbar() {
           : "bg-transparent py-6"
         }`}
     >
+      {/* Dynamic Scroll Progress Bar */}
+      <motion.div
+        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-primary shadow-[0_0_10px_rgba(162,231,255,0.7)] pointer-events-none"
+      />
+
       <div className="flex justify-between items-center px-6 md:px-12 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex items-center gap-4 z-50"
         >
-          <a href="#home" className="group flex items-center gap-2">
-            <h1 className="text-xl font-bold tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(196,192,255,0.4)] font-headline uppercase whitespace-nowrap hidden sm:block">
+          <a href="#home" className="group flex items-center gap-2.5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+            <h1 className="text-xl font-bold tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(196,192,255,0.4)] font-headline uppercase whitespace-nowrap hidden sm:block group-hover:text-secondary transition-colors">
               {portfolioData.name}
             </h1>
           </a>
@@ -135,8 +146,11 @@ export default function Navbar() {
           href="#contact"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-full font-label text-[10px] tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_20px_rgba(196,192,255,0.2)]"
+          whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(196,192,255,0.3)" }}
+          whileTap={{ scale: 0.95 }}
+          className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-primary/10 text-primary border border-primary/20 rounded-full font-label text-[10px] tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer"
         >
+          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           Hire Me
         </motion.a>
 

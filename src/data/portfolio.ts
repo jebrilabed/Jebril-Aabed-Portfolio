@@ -1,7 +1,7 @@
 export const portfolioData = {
   name: "Jebril Aabed",
   role: "Software Developer | Next.js, React & AI Integration",
-  bio: "Frontend Developer specializing in React.js, Next.js, and TypeScript, with hands-on experience building responsive web applications, e-commerce platforms, and user-focused interfaces. Experienced in integrating RESTful APIs, authentication, and database-backed services using FastAPI, PostgreSQL, Prisma, and Supabase. Familiar with AI integration and RAG workflows using Gemini, LangChain, and ChromaDB. Focused on clean code, reusable components, responsive design, and delivering maintainable, high-quality web applications.",
+  bio: "Software Developer specializing in React.js, Next.js, and TypeScript, with hands-on experience building responsive web applications, e-commerce platforms, and user-focused interfaces. Experienced in integrating RESTful APIs, authentication, and database-backed services using FastAPI, PostgreSQL, Prisma, and Supabase. Familiar with AI integration and RAG workflows using Gemini, LangChain, and ChromaDB. Focused on clean code, reusable components, responsive design, and delivering maintainable, high-quality web applications.",
   email: "jebrilaabed@gmail.com",
   phone: "+972 593-478-714",
   location: "Gaza, Palestine",
@@ -157,6 +157,7 @@ export const portfolioData = {
   projects: [
     {
       name: "Jebril Aabed Portfolio",
+      category: "portfolio",
       desc: "A high-performance modern personal portfolio built with Next.js 15, React 19, Tailwind CSS, and Framer Motion. It showcases my projects, skills, and experience as a Frontend Developer with smooth animations and a responsive UI.",
       color: "#e0f2fe",
       accent: "#0ea5e9",
@@ -167,6 +168,7 @@ export const portfolioData = {
     },
     {
       name: "Acadamic Library",
+      category: "web",
       desc: "A comprehensive acadamic library platform designed for university students to easily access summaries, lectures, and study materials. It provides a smooth and organized experience with filtering, searching, and structured academic content navigation.",
       color: "#e0f2fe",
       accent: "#0284c7",
@@ -177,6 +179,7 @@ export const portfolioData = {
     },
     {
       name: "Bara’a Store – E-commerce Platform",
+      category: "ecommerce",
       desc: "A modern Arabic e-commerce platform for skincare, personal care, and home fragrance products, featuring a responsive RTL interface, secure checkout, customer accounts, and a comprehensive admin dashboard for managing products, inventory, and orders.",
       color: "#fce7f3",
       accent: "#db2777",
@@ -187,6 +190,7 @@ export const portfolioData = {
     },
     {
       name: "Organaza Fashion – E-commerce Platform",
+      category: "ecommerce",
       desc: "A modern Arabic fashion e-commerce platform featuring a responsive RTL interface, multilingual support, advanced product filtering, shopping cart, secure checkout, and an admin dashboard for managing products, inventory, categories, and orders.",
       color: "#f3e8ff",
       accent: "#9333ea",
@@ -197,6 +201,7 @@ export const portfolioData = {
     },
     {
       name: "RAWNQ Home & Living – E-commerce Platform",
+      category: "ecommerce",
       desc: "A modern multilingual e-commerce platform for home and living products, featuring a responsive storefront, product filtering, wishlist, shopping cart, secure checkout, and a comprehensive admin dashboard. Integrated with Best Route shipping API for shipment creation and delivery tracking.",
       color: "#dcfce7",
       accent: "#16a34a",
@@ -207,6 +212,7 @@ export const portfolioData = {
     },
     {
       name: "Educational Platform",
+      category: "web",
       desc: "An online education platform that helps users access learning content in an organized and interactive way. It offers a smooth experience for exploring courses, tracking progress, and improving skills efficiently.",
       color: "#fef3c7",
       accent: "#f59e0b",

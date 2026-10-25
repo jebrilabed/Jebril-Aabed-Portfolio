@@ -73,92 +73,153 @@ export default function Contact() {
 
   const isLoading = status === "loading";
 
+  const contactChannels = [
+    {
+      title: "Email",
+      val: portfolioData.email,
+      href: `https://mail.google.com/mail/?view=cm&to=${portfolioData.email}`,
+      icon: "mail",
+      color: "text-rose-400 group-hover:bg-rose-500/20",
+      accent: "hover:border-rose-400/40",
+    },
+    {
+      title: "LinkedIn",
+      val: "Jebril Aabed",
+      href: portfolioData.socials.linkedin,
+      icon: "hub",
+      color: "text-secondary group-hover:bg-secondary/20",
+      accent: "hover:border-secondary/40",
+    },
+    {
+      title: "WhatsApp",
+      val: portfolioData.phone || "+972 593-478-714",
+      href: portfolioData.socials.whatsapp,
+      icon: "chat",
+      color: "text-emerald-400 group-hover:bg-emerald-500/20",
+      accent: "hover:border-emerald-400/40",
+    },
+    {
+      title: "Location",
+      val: portfolioData.location || "Gaza, Palestine",
+      href: "https://maps.google.com/?q=Gaza",
+      icon: "pin_drop",
+      color: "text-amber-400 group-hover:bg-amber-500/20",
+      accent: "hover:border-amber-400/40",
+    },
+  ];
+
   return (
-    <section id="contact" className="py-12 md:py-20 px-6 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="contact" className="py-16 md:py-24 px-6 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden relative">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-10 w-80 h-80 bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        {/* Left Column: Contact Channels */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-5"
         >
-          <h2 className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-8 uppercase">
-            Start a<br /> <span className="text-primary italic">Conversation</span>.
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-8 h-px bg-primary" />
+            <p className="font-label text-secondary text-xs tracking-[0.25em] uppercase">
+              Get In Touch
+            </p>
+          </div>
+
+          <h2 className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-6 uppercase">
+            Start a<br /> <span className="text-primary glow-text">Conversation</span>.
           </h2>
-          <p className="text-on-surface-variant text-xl leading-relaxed mb-12 max-w-md">
-            Have a project in mind or just want to connect?
-            I’m open to new opportunities, collaborations, and creative ideas.
+
+          <p className="text-on-surface-variant text-base md:text-lg leading-relaxed mb-10">
+            Have a project in mind, an opportunity to discuss, or just want to connect?
+            I’m always open to discussing new ideas, software architectures, and AI integration.
           </p>
 
-          <div className="space-y-6">
-            <div className="flex items-center gap-4 group cursor-pointer">
-              <div className="p-3 bg-surface-low rounded-lg group-hover:bg-[#ffb4ab]/20 transition-colors">
-                <span className="material-symbols-outlined text-[#ffb4ab]">mail</span>
-              </div>
-              <a href={`https://mail.google.com/mail/?view=cm&to=${portfolioData.email}`} target="_blank" rel="noopener noreferrer" aria-label="Send an email to Jebril Aabed">
-                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">Email</p>
-                <p className="text-foreground font-medium group-hover:text-[#ffb4ab] transition-colors">
-                  {portfolioData.email}
-                </p>
-              </a>
-            </div>
-
-            <div className="flex items-center gap-4 group cursor-pointer">
-              <div className="p-3 bg-surface-low rounded-lg group-hover:bg-secondary/20 transition-colors">
-                <span className="material-symbols-outlined text-secondary">hub</span>
-              </div>
-              <a href={portfolioData.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visit Jebril Aabed's LinkedIn profile">
-                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">LinkedIn</p>
-                <p className="text-foreground font-medium group-hover:text-secondary transition-colors">
-                  Jebril Aabed
-                </p>
-              </a>
-            </div>
-
-            <div className="flex items-center gap-4 group cursor-pointer">
-              <div className="p-3 bg-surface-low rounded-lg group-hover:bg-[#b4f0ad]/20 transition-colors">
-                <span className="material-symbols-outlined text-[#b4f0ad]">chat</span>
-              </div>
-              <a href={portfolioData.socials.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Message Jebril Aabed on WhatsApp">
-                <p className="font-label text-[10px] uppercase opacity-50 tracking-widest">WhatsApp</p>
-                <p className="text-foreground font-medium group-hover:text-[#b4f0ad] transition-colors">
-                  Message Me
-                </p>
-              </a>
-            </div>
+          <div className="space-y-4">
+            {contactChannels.map((item, idx) => (
+              <motion.a
+                key={idx}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ x: 6 }}
+                className={`flex items-center gap-4 p-4 rounded-2xl bg-surface-low/80 backdrop-blur-md border border-outline-variant/30 ${item.accent} transition-all duration-300 group cursor-pointer shadow-sm`}
+                aria-label={`Open ${item.title}`}
+              >
+                <div className={`p-3 bg-surface-container rounded-xl transition-colors ${item.color}`}>
+                  <span className="material-symbols-outlined text-xl">{item.icon}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-label text-[10px] uppercase opacity-60 tracking-widest">{item.title}</p>
+                  <p className="text-foreground font-headline font-bold text-sm truncate group-hover:text-primary transition-colors">
+                    {item.val}
+                  </p>
+                </div>
+                <span className="material-symbols-outlined text-sm opacity-30 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                  open_in_new
+                </span>
+              </motion.a>
+            ))}
           </div>
         </motion.div>
 
+        {/* Right Column: Transmission Form */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-surface-lowest p-8 rounded-2xl border border-outline-variant shadow-2xl relative"
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-7 bg-surface-lowest p-8 md:p-10 rounded-3xl border border-outline-variant/40 shadow-2xl relative overflow-hidden backdrop-blur-xl"
         >
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary/10 rounded-full blur-2xl"></div>
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
-          <h3 className="font-headline text-2xl font-bold mb-8 uppercase">Transmission Form</h3>
+          <div className="flex items-center justify-between mb-8 pb-4 border-b border-outline-variant/20">
+            <div>
+              <h3 className="font-headline text-2xl font-bold uppercase tracking-tight text-foreground">
+                Transmission Portal
+              </h3>
+              <p className="font-label text-xs text-on-surface-variant/70 uppercase tracking-widest mt-1">
+                Direct encrypted message
+              </p>
+            </div>
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-low border border-outline-variant/30 text-[10px] font-label text-secondary tracking-widest uppercase">
+              <span className="h-1.5 w-1.5 rounded-full bg-secondary animate-pulse" />
+              Live Gateway
+            </span>
+          </div>
+
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Full Name</label>
+                <label className="font-label text-[10px] uppercase tracking-widest opacity-60 ml-1">
+                  Your Name
+                </label>
                 <input
                   type="text"
-                  placeholder="Your Name"
-                  className={`w-full bg-surface-low border ${errors.name ? "border-red-500/50" : "border-outline-variant"
-                    } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none`}
+                  placeholder="e.g. John Doe"
+                  className={`w-full bg-surface-low border ${
+                    errors.name ? "border-red-500/50" : "border-outline-variant/40"
+                  } focus:border-primary focus:ring-1 focus:ring-primary/30 rounded-xl px-4 py-3.5 transition-all duration-300 outline-none font-body text-foreground placeholder:text-on-surface-variant/40`}
                   disabled={isLoading}
                   onChange={(e) => handleChange("name", e.target.value)}
                   value={form.name}
                 />
                 {errors.name && <p className="text-red-400 text-xs mt-1 ml-1 font-label">{errors.name}</p>}
               </div>
+
               <div className="space-y-2">
-                <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Email Address</label>
+                <label className="font-label text-[10px] uppercase tracking-widest opacity-60 ml-1">
+                  Email Address
+                </label>
                 <input
                   type="email"
-                  placeholder="Email Address"
-                  className={`w-full bg-surface-low border ${errors.email ? "border-red-500/50" : "border-outline-variant"
-                    } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none`}
+                  placeholder="name@domain.com"
+                  className={`w-full bg-surface-low border ${
+                    errors.email ? "border-red-500/50" : "border-outline-variant/40"
+                  } focus:border-primary focus:ring-1 focus:ring-primary/30 rounded-xl px-4 py-3.5 transition-all duration-300 outline-none font-body text-foreground placeholder:text-on-surface-variant/40`}
                   value={form.email}
                   onChange={(e) => handleChange("email", e.target.value)}
                   disabled={isLoading}
@@ -166,17 +227,21 @@ export default function Contact() {
                 {errors.email && <p className="text-red-400 text-xs mt-1 ml-1 font-label">{errors.email}</p>}
               </div>
             </div>
+
             <div className="space-y-2">
-              <label className="font-label text-[10px] uppercase tracking-widest opacity-50 ml-1">Message</label>
+              <label className="font-label text-[10px] uppercase tracking-widest opacity-60 ml-1">
+                Your Message
+              </label>
               <textarea
                 rows={4}
-                placeholder="Message..."
-                className={`w-full bg-surface-low border ${errors.message ? "border-red-500/50" : "border-outline-variant"
-                  } focus:border-primary focus:ring-0 rounded-xl px-4 py-3 transition-all duration-300 outline-none resize-none`}
+                placeholder="Tell me about your project, idea, or inquiry..."
+                className={`w-full bg-surface-low border ${
+                  errors.message ? "border-red-500/50" : "border-outline-variant/40"
+                } focus:border-primary focus:ring-1 focus:ring-primary/30 rounded-xl px-4 py-3.5 transition-all duration-300 outline-none resize-none font-body text-foreground placeholder:text-on-surface-variant/40`}
                 value={form.message}
                 onChange={(e) => handleChange("message", e.target.value)}
                 disabled={isLoading}
-              ></textarea>
+              />
               {errors.message && <p className="text-red-400 text-xs mt-1 ml-1 font-label">{errors.message}</p>}
             </div>
 
@@ -186,9 +251,12 @@ export default function Contact() {
               </div>
             )}
 
-            <button
+            <motion.button
+              type="submit"
               disabled={isLoading || status === "success"}
-              className="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline font-bold uppercase tracking-widest rounded-xl hover:shadow-[0_0_25px_rgba(196,192,255,0.4)] transition-all duration-500 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(196,192,255,0.3)" }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full py-4.5 bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline font-bold uppercase tracking-widest rounded-xl transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer shadow-lg"
             >
               {status === "loading" ? (
                 <>
@@ -196,12 +264,15 @@ export default function Contact() {
                 </>
               ) : status === "success" ? (
                 <>
-                  <span className="material-symbols-outlined text-lg">check_circle</span> Signal Sent!
+                  <span className="material-symbols-outlined text-lg">check_circle</span> Transmission Received!
                 </>
               ) : (
-                <>Send Message</>
+                <>
+                  <span>Send Transmission</span>
+                  <span className="material-symbols-outlined text-base">send</span>
+                </>
               )}
-            </button>
+            </motion.button>
           </form>
         </motion.div>
       </div>
