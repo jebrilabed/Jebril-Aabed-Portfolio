@@ -25,7 +25,7 @@ export default function Home() {
               "https://github.com/jebrilabed",
               "https://www.linkedin.com/in/jebril-aabed",
             ],
-            jobTitle: "Frontend Developer",
+            jobTitle: "Software Developer | Next.js, React & AI Integration",
             worksFor: {
               "@type": "Organization",
               name: "Freelance",

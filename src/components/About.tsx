@@ -77,14 +77,14 @@ export default function About() {
             {/* Actions Row */}
             <div className="mt-12 flex flex-wrap items-center gap-8">
               <a
-                href="/Jebril-Aabed-CV.pdf"
-                download="Jebril-Aabed-CV.pdf"
+                href={portfolioData.cvFile}
+                download="Jebril-Aabed-Software-Engineer-CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-8 py-4 bg-surface-high hover:bg-surface-highest text-foreground font-label font-bold tracking-widest uppercase rounded-lg border-t border-primary/10 transition-all duration-300 cursor-pointer"
+                className="flex items-center gap-3 px-8 py-4 bg-surface-high hover:bg-surface-highest text-foreground font-label font-bold tracking-widest uppercase rounded-lg border-t border-primary/10 transition-all duration-300 cursor-pointer group"
                 aria-label="Download Jebril Aabed's CV"
               >
-                <span className="material-symbols-outlined text-secondary" aria-hidden="true">
+                <span className="material-symbols-outlined text-secondary group-hover:translate-y-0.5 transition-transform" aria-hidden="true">
                   download
                 </span>
                 Download CV

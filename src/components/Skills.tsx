@@ -4,31 +4,64 @@ import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";
 
 const skillIcons: Record<string, string> = {
-  "HTML5/CSS3 Mastery": "code",
-  "Responsive Design": "devices",
-  "Collaborative Team Player": "groups",
-  "JavaScript": "javascript",
-  "Typescript": "data_object",
-  "Attention to Detail": "visibility",
-  "Problem Solving": "psychology",
-  "React": "hub",
   "Next.js": "rocket_launch",
+  "React.js": "hub",
+  "TypeScript": "data_object",
+  "JavaScript (ES6+)": "javascript",
+  "Tailwind CSS": "palette",
+  "Redux": "sync_alt",
+  "HTML5 & CSS3": "code",
+  "Responsive Design": "devices",
+  "FastAPI": "bolt",
+  "Python": "terminal",
+  "Google Gemini": "auto_awesome",
+  "LangChain": "link",
+  "RAG & ChromaDB": "psychology",
+  "PostgreSQL": "database",
+  "Prisma": "layers",
+  "Supabase": "dns",
+  "REST APIs": "api",
 };
 
-// duplicate list for seamless loop
-const skills = portfolioData.skills;
-const doubledSkills = [...skills, ...skills, ...skills];
+// Row 1: Frontend & Core Languages (scrolls left)
+const frontendSkills = [
+  "Next.js",
+  "React.js",
+  "TypeScript",
+  "JavaScript (ES6+)",
+  "Tailwind CSS",
+  "Redux",
+  "HTML5 & CSS3",
+  "Responsive Design",
+];
+const doubledFrontend = [...frontendSkills, ...frontendSkills, ...frontendSkills];
 
+// Row 2: AI, Backend & Databases (scrolls right)
+const backendAiSkills = [
+  "FastAPI",
+  "Python",
+  "Google Gemini",
+  "LangChain",
+  "RAG & ChromaDB",
+  "PostgreSQL",
+  "Prisma",
+  "Supabase",
+  "REST APIs",
+];
+const doubledBackendAi = [...backendAiSkills, ...backendAiSkills, ...backendAiSkills];
+
+// Row 3: Deployment, Tools & Testing (scrolls left)
 const toolsList = [
   { name: "Vercel", icon: "cloud_upload" },
-  { name: "Firebase", icon: "local_fire_department" },
-  { name: "Git", icon: "merge" },
-  { name: "Postman", icon: "api" },
-  { name: "Responsive Design", icon: "devices" },
-  { name: "UI/UX", icon: "palette" },
+  { name: "Render", icon: "cloud" },
+  { name: "Docker", icon: "deployed_code" },
+  { name: "Git & GitHub", icon: "merge" },
+  { name: "Postman", icon: "send" },
+  { name: "k6 Testing", icon: "speed" },
+  { name: "Figma", icon: "draw" },
+  { name: "VS Code", icon: "code_blocks" },
+  { name: "Chrome DevTools", icon: "developer_mode" },
 ];
-
-// duplicate for second row
 const doubledTools = [...toolsList, ...toolsList, ...toolsList];
 
 export default function Skills() {
@@ -53,9 +86,9 @@ export default function Skills() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight text-foreground leading-none uppercase"
           >
-            PIXEL PERFECT   <br />
+            MODERN STACK &   <br />
             <span className="text-primary drop-shadow-[0_0_15px_rgba(196,192,255,0.3)]">
-              EXPERIENCES
+              AI INTEGRATION
             </span>
           </motion.h2>
         </div>
@@ -75,7 +108,7 @@ export default function Skills() {
         </motion.div>
       </div>
 
-      {/* ── Row 1: Skills → left (slow) ── */}
+      {/* ── Row 1: Frontend & Languages → left (slow) ── */}
       <div className="relative mb-5">
         {/* fade edges */}
         <div className="absolute left-0 top-0 h-full w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
@@ -87,7 +120,7 @@ export default function Skills() {
             animate={{ x: ["0%", "-33.33%"] }}
             transition={{ repeat: Infinity, ease: "linear", duration: 28 }}
           >
-            {doubledSkills.map((skill, i) => (
+            {doubledFrontend.map((skill, i) => (
               <div
                 key={i}
                 className="flex items-center gap-3 px-6 py-4 bg-surface-low border border-outline-variant/40 rounded-full whitespace-nowrap group hover:border-primary/40 hover:bg-surface-high transition-all duration-300"
@@ -104,7 +137,7 @@ export default function Skills() {
         </div>
       </div>
 
-      {/* ── Row 2: Skills → right (medium) ── */}
+      {/* ── Row 2: AI & Backend → right (medium) ── */}
       <div className="relative mb-5">
         <div className="absolute left-0 top-0 h-full w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
         <div className="absolute right-0 top-0 h-full w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
@@ -113,9 +146,9 @@ export default function Skills() {
           <motion.div
             className="flex gap-4 min-w-max"
             animate={{ x: ["-33.33%", "0%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 22 }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 25 }}
           >
-            {doubledSkills.map((skill, i) => (
+            {doubledBackendAi.map((skill, i) => (
               <div
                 key={i}
                 className="flex items-center gap-3 px-6 py-4 bg-surface-container border border-outline-variant/30 rounded-full whitespace-nowrap group hover:border-secondary/40 hover:bg-surface-high transition-all duration-300"
@@ -132,7 +165,7 @@ export default function Skills() {
         </div>
       </div>
 
-      {/* ── Row 3: Tools → left (fast) ── */}
+      {/* ── Row 3: Tools & Testing → left (fast) ── */}
       <div className="relative">
         <div className="absolute left-0 top-0 h-full w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
         <div className="absolute right-0 top-0 h-full w-32 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
@@ -141,7 +174,7 @@ export default function Skills() {
           <motion.div
             className="flex gap-4 min-w-max"
             animate={{ x: ["0%", "-33.33%"] }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 18 }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
           >
             {doubledTools.map((tool, i) => (
               <div
@@ -169,8 +202,8 @@ export default function Skills() {
         className="px-6 md:px-12 max-w-7xl mx-auto mt-16 flex items-center gap-4"
       >
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-outline-variant to-transparent" />
-        <span className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant">
-          Technologies and practices for building scalable, modern web applications
+        <span className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant text-center">
+          Frontend Architecture • Backend & REST APIs • AI & RAG Workflows • Scalable Deployment
         </span>
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-outline-variant to-transparent" />
       </motion.div>

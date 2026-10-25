@@ -32,7 +32,7 @@ export default function Hero() {
           className="font-body text-xl md:text-2xl text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed animate-fade-in"
           style={{ animationDelay: "500ms", animationFillMode: "both" }}
         >
-          Building <span className="text-secondary italic">fast, scalable, and visually engaging</span> web applications using modern frontend technologies.
+          Building <span className="text-secondary italic">fast, scalable, and AI-integrated</span> web applications using Next.js, React, and modern technologies.
         </p>
 
         <div
