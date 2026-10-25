@@ -84,10 +84,12 @@ Navigate to `http://localhost:3000` to see the live application.
 
 ## 🏗 Projects Showcased
 
+- **Jebril Aabed Portfolio**: Modern personal portfolio with smooth animations and responsive UI.
+- **Bara'a Store**: Full-stack e-commerce platform for skincare and fragrances (Next.js, Prisma, PostgreSQL).
+- **Organza Fashion**: Luxury fashion e-commerce storefront with AI customer assistant and catalog management.
+- **RAWNQ Store**: Modern home & living e-commerce platform with multilingual support and automated order management.
 - **Academic Library**: A comprehensive platform for university study materials.
-- **Weather App**: Real-time weather forecasting with a clean UI.
 - **Educational Platform**: Interactive course navigation and tracking.
-- **DevBoard**: Developer productivity tool for Kanban and snippet tracking.
 
 ---
 
