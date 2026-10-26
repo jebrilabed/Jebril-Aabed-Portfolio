@@ -285,13 +285,13 @@ export default function Intel() {
   ];
 
   return (
-    <section id="intel" className="py-16 md:py-24 px-6 max-w-7xl mx-auto scroll-mt-28 relative">
+    <section id="intel" className="py-14 md:py-24 px-5 sm:px-6 max-w-7xl mx-auto scroll-mt-28 relative">
       {/* Background Subtle Neon Ambient Flares */}
       <div className="absolute top-1/4 left-10 w-96 h-96 bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-secondary/5 rounded-full blur-[140px] pointer-events-none" />
 
       {/* ─── Header ─── */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-10 md:mb-14">
         <div>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -311,7 +311,7 @@ export default function Intel() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight uppercase"
+            className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight uppercase"
           >
             Intel <span className="text-primary glow-text">Storage</span>
           </motion.h2>
@@ -355,7 +355,7 @@ export default function Intel() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mb-14 relative group rounded-3xl bg-gradient-to-br from-surface-low via-surface-low/95 to-surface-container/60 border border-outline-variant/30 p-8 md:p-10 shadow-2xl backdrop-blur-xl overflow-hidden hover:border-primary/40 transition-colors"
+        className="mb-10 md:mb-14 relative group rounded-3xl bg-gradient-to-br from-surface-low via-surface-low/95 to-surface-container/60 border border-outline-variant/30 p-5 sm:p-8 md:p-10 shadow-2xl backdrop-blur-xl overflow-hidden hover:border-primary/40 transition-colors"
       >
         {/* Ambient Corner Flare */}
         <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-primary/10 via-transparent to-transparent pointer-events-none" />
@@ -376,7 +376,7 @@ export default function Intel() {
               </span>
             </div>
 
-            <h3 className="font-headline text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">
+            <h3 className="font-headline text-2xl md:text-4xl font-extrabold text-foreground tracking-tight">
               Bachelor’s Degree in Software Engineering
             </h3>
             <p className="font-label text-sm md:text-base text-secondary font-medium tracking-wide">
@@ -431,8 +431,8 @@ export default function Intel() {
       </motion.div>
 
       {/* ─── Interactive Filter Tabs ─── */}
-      <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
-        <div className="flex items-center gap-2 p-1.5 bg-surface-low/80 backdrop-blur-md rounded-2xl border border-outline-variant/30 overflow-x-auto max-w-full">
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-6 md:mb-8">
+        <div className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 bg-surface-low/80 backdrop-blur-md rounded-2xl border border-outline-variant/30 overflow-x-auto max-w-full">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.key;
             return (

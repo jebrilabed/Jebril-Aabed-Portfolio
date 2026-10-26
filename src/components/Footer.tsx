@@ -9,11 +9,11 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full py-12 px-8 bg-surface-lowest border-t border-outline-variant/30 mt-auto relative overflow-hidden">
+    <footer className="w-full py-10 px-5 sm:px-8 bg-surface-lowest border-t border-outline-variant/30 mt-auto relative overflow-hidden">
       {/* Background flare */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-20 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl mx-auto text-center md:text-left relative z-10">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8 max-w-7xl mx-auto text-center md:text-left relative z-10">
         <div className="flex flex-col items-center md:items-start">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -21,7 +21,7 @@ export default function Footer() {
               {portfolioData.name.toUpperCase()}
             </span>
           </div>
-          <p className="text-on-surface-variant font-label text-[10px] tracking-widest mt-2 uppercase opacity-60">
+          <p className="text-on-surface-variant font-label text-[10px] tracking-widest mt-2 uppercase opacity-60 max-w-[280px] md:max-w-none mx-auto md:mx-0">
             © 2026 Jebril Aabed • Built with Next.js 15, React 19 & Tailwind CSS
           </p>
         </div>

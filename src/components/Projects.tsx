@@ -36,13 +36,13 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="py-16 md:py-24 px-6 md:px-12 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden relative"
+      className="py-14 md:py-24 px-5 sm:px-6 md:px-12 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden relative"
     >
       {/* Background Ambient Glow */}
       <div className="absolute top-1/3 right-10 w-96 h-96 bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
 
       {/* ─── Header ─── */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-8 md:mb-12">
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="w-8 h-px bg-primary" />
@@ -50,7 +50,7 @@ export default function Projects() {
               Production Applications
             </p>
           </div>
-          <h2 className="font-headline text-5xl md:text-7xl font-extrabold uppercase tracking-tight">
+          <h2 className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold uppercase tracking-tight">
             Featured <span className="text-secondary drop-shadow-[0_0_15px_rgba(162,231,255,0.3)]">Work</span>
           </h2>
         </div>
@@ -69,7 +69,7 @@ export default function Projects() {
       </div>
 
       {/* ─── Filter Tabs ─── */}
-      <div className="flex items-center gap-2 p-1.5 bg-surface-low/80 backdrop-blur-md rounded-2xl border border-outline-variant/30 mb-12 overflow-x-auto max-w-full">
+      <div className="flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 bg-surface-low/80 backdrop-blur-md rounded-2xl border border-outline-variant/30 mb-8 md:mb-12 overflow-x-auto max-w-full">
         {TABS.map((tab) => {
           const isActive = activeCategory === tab.key;
           const count = getCount(tab.key);

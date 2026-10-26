@@ -8,10 +8,10 @@ export default function About() {
   return (
     <section
       id="about"
-      className="bg-surface-lowest py-16 md:py-24 relative overflow-hidden scroll-mt-28"
+      className="bg-surface-lowest py-14 md:py-24 relative overflow-hidden scroll-mt-28"
     >
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Profile Image Column (Asymmetric Layout with floating badges) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -85,12 +85,12 @@ export default function About() {
               </p>
             </div>
 
-            <h2 className="font-headline text-4xl md:text-6xl font-bold tracking-tighter mb-8 text-foreground leading-tight">
+            <h2 className="font-headline text-3xl md:text-6xl font-bold tracking-tighter mb-6 md:mb-8 text-foreground leading-tight">
               The Developer Behind <br />
               The <span className="text-secondary drop-shadow-[0_0_15px_rgba(162,231,255,0.3)]">Code</span>.
             </h2>
 
-            <div className="space-y-6 text-base md:text-lg text-on-surface-variant leading-relaxed max-w-2xl">
+            <div className="space-y-5 text-sm md:text-lg text-on-surface-variant leading-relaxed max-w-2xl">
               <p>{portfolioData.bio}</p>
             </div>
 
@@ -132,7 +132,7 @@ export default function About() {
             </div>
 
             {/* Actions Row */}
-            <div className="mt-10 flex flex-wrap items-center gap-6">
+            <div className="mt-8 flex flex-wrap items-center gap-4">
               <motion.a
                 href={portfolioData.cvFile}
                 download="Jebril-Aabed-Software-Engineer-CV.pdf"
@@ -140,7 +140,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.04, boxShadow: "0 0 25px rgba(162,231,255,0.3)" }}
                 whileTap={{ scale: 0.96 }}
-                className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-surface-high to-surface-container hover:from-surface-highest hover:to-surface-high text-foreground font-label font-bold tracking-widest uppercase rounded-xl border border-secondary/30 transition-all duration-300 cursor-pointer group shadow-lg"
+                className="flex items-center gap-3 px-6 py-3.5 bg-gradient-to-r from-surface-high to-surface-container hover:from-surface-highest hover:to-surface-high text-foreground font-label font-bold tracking-widest uppercase rounded-xl border border-secondary/30 transition-all duration-300 cursor-pointer group shadow-lg"
                 aria-label="Download Jebril Aabed's CV"
               >
                 <span

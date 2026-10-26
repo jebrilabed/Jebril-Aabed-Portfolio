@@ -68,7 +68,7 @@ export default function Skills() {
   return (
     <section id="skills" className="py-12 md:py-20 overflow-hidden scroll-mt-28">
       {/* ── Header ── */}
-      <div className="px-6 md:px-12 max-w-7xl mx-auto mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div className="px-5 sm:px-6 md:px-12 max-w-7xl mx-auto mb-12 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-8">
         <div className="max-w-2xl">
           <motion.p
             initial={{ opacity: 0, x: -20 }}
@@ -84,7 +84,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight text-foreground leading-none uppercase"
+            className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-foreground leading-none uppercase"
           >
             MODERN STACK &   <br />
             <span className="text-primary drop-shadow-[0_0_15px_rgba(196,192,255,0.3)]">

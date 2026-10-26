@@ -31,7 +31,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden neon-grid pt-20 pb-32 md:pb-20 select-none"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden neon-grid pt-20 pb-24 md:pb-20 select-none"
     >
       {/* Background Radial Glow Backlight */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
@@ -62,19 +62,19 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 text-left md:text-center">
+      <div className="container mx-auto px-5 sm:px-6 relative z-10 text-left md:text-center">
         {/* Terminal Status Tag */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2.5 mb-6 px-4 py-1.5 rounded-full bg-surface-low/90 border border-outline-variant/30 shadow-inner"
+          className="inline-flex items-center gap-2 mb-5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-surface-low/90 border border-outline-variant/30 shadow-inner"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
           </span>
-          <span className="font-label text-secondary tracking-[0.2em] uppercase text-xs">
+          <span className="font-label text-secondary tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[10px] sm:text-xs">
             System Online • Available for Opportunities
           </span>
         </motion.div>
@@ -84,7 +84,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-headline text-5xl md:text-8xl font-extrabold tracking-[-0.04em] mb-4 text-foreground max-w-5xl mx-auto leading-tight"
+          className="font-headline text-4xl xs:text-5xl md:text-8xl font-extrabold tracking-[-0.04em] mb-4 text-foreground max-w-5xl mx-auto leading-[1.1]"
         >
           Hello, I am{" "}
           <span className="text-primary glow-text inline-block">
@@ -93,7 +93,7 @@ export default function Hero() {
         </motion.h1>
 
         {/* Animated Role Cycler */}
-        <div className="h-10 md:h-12 flex items-center justify-start md:justify-center mb-6 overflow-hidden">
+        <div className="h-9 md:h-12 flex items-center justify-start md:justify-center mb-5 md:mb-6 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
               key={roleIndex}
@@ -101,7 +101,7 @@ export default function Hero() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -20, opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="font-label text-lg md:text-2xl text-secondary font-bold tracking-wider uppercase flex items-center gap-2"
+              className="font-label text-base md:text-2xl text-secondary font-bold tracking-wider uppercase flex items-center gap-2"
             >
               <span className="text-primary/60 font-mono">//</span>
               {ROLES[roleIndex]}
@@ -114,7 +114,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="font-body text-xl md:text-2xl text-on-surface-variant mb-12 max-w-2xl mx-auto leading-relaxed"
+          className="font-body text-base md:text-2xl text-on-surface-variant mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed"
         >
           Building{" "}
           <span className="text-secondary italic font-medium">
@@ -128,13 +128,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col md:flex-row items-center justify-center gap-6"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-6"
         >
           <motion.a
             href="#projects"
             whileHover={{ scale: 1.05, boxShadow: "0 0 35px rgba(196,192,255,0.4)" }}
             whileTap={{ scale: 0.96 }}
-            className="w-full md:w-auto px-10 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-label font-bold tracking-widest uppercase rounded-xl transition-all duration-300 text-center flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+            className="w-full sm:w-auto px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-label font-bold tracking-widest uppercase rounded-xl transition-all duration-300 text-center flex items-center justify-center gap-2 cursor-pointer shadow-lg"
           >
             <span>View My Work</span>
             <span className="material-symbols-outlined text-sm">rocket_launch</span>
@@ -144,7 +144,7 @@ export default function Hero() {
             href="#contact"
             whileHover={{ scale: 1.05, borderColor: "rgba(162,231,255,0.6)" }}
             whileTap={{ scale: 0.96 }}
-            className="w-full md:w-auto px-10 py-5 bg-surface-low/80 backdrop-blur-md border border-outline-variant text-foreground font-label font-bold tracking-widest uppercase rounded-xl hover:bg-surface-high transition-all duration-300 text-center flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full sm:w-auto px-8 py-4 bg-surface-low/80 backdrop-blur-md border border-outline-variant text-foreground font-label font-bold tracking-widest uppercase rounded-xl hover:bg-surface-high transition-all duration-300 text-center flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>Contact Me</span>
             <span className="material-symbols-outlined text-sm text-secondary">chat</span>

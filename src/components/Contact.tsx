@@ -109,11 +109,11 @@ export default function Contact() {
   ];
 
   return (
-    <section id="contact" className="py-16 md:py-24 px-6 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden relative">
+    <section id="contact" className="py-14 md:py-24 px-5 sm:px-6 max-w-7xl mx-auto scroll-mt-28 overflow-x-hidden relative">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-10 w-80 h-80 bg-primary/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
         {/* Left Column: Contact Channels */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -129,11 +129,11 @@ export default function Contact() {
             </p>
           </div>
 
-          <h2 className="font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-6 uppercase">
+          <h2 className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 uppercase">
             Start a<br /> <span className="text-primary glow-text">Conversation</span>.
           </h2>
 
-          <p className="text-on-surface-variant text-base md:text-lg leading-relaxed mb-10">
+          <p className="text-on-surface-variant text-sm md:text-lg leading-relaxed mb-8 md:mb-10">
             Have a project in mind, an opportunity to discuss, or just want to connect?
             I’m always open to discussing new ideas, software architectures, and AI integration.
           </p>
@@ -172,7 +172,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="lg:col-span-7 bg-surface-lowest p-8 md:p-10 rounded-3xl border border-outline-variant/40 shadow-2xl relative overflow-hidden backdrop-blur-xl"
+          className="lg:col-span-7 bg-surface-lowest p-5 sm:p-8 md:p-10 rounded-3xl border border-outline-variant/40 shadow-2xl relative overflow-hidden backdrop-blur-xl"
         >
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -192,7 +192,7 @@ export default function Contact() {
           </div>
 
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-5">
               <div className="space-y-2">
                 <label className="font-label text-[10px] uppercase tracking-widest opacity-60 ml-1">
                   Your Name
