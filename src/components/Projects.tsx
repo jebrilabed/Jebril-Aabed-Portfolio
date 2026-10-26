@@ -142,7 +142,17 @@ export default function Projects() {
                 </div>
 
                 {/* Project Image Frame */}
-                <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-surface-container mb-6 shadow-xl border border-outline-variant/20">
+                {/* On mobile: tapping the image opens the demo; on desktop: hover overlay handles it */}
+                <div
+                  className={`relative overflow-hidden rounded-2xl aspect-[16/10] bg-surface-container mb-6 shadow-xl border border-outline-variant/20 ${
+                    project.liveDemo ? "md:cursor-default cursor-pointer" : ""
+                  }`}
+                  onClick={() => {
+                    if (window.innerWidth < 768 && project.liveDemo) {
+                      window.open(project.liveDemo, "_blank", "noopener,noreferrer");
+                    }
+                  }}
+                >
                   <Image
                     src={project.image}
                     alt={`${project.name} - Project Screenshot`}
@@ -153,7 +163,15 @@ export default function Projects() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity duration-500" />
 
-                  {/* Overlay Quick Actions on Hover */}
+                  {/* Mobile-only tap hint – hidden on md+ */}
+                  {project.liveDemo && (
+                    <div className="md:hidden absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 pointer-events-none">
+                      <span className="material-symbols-outlined text-xs text-secondary">open_in_new</span>
+                      <span className="font-label text-[10px] text-secondary uppercase tracking-wider">اضغط للمشاهدة</span>
+                    </div>
+                  )}
+
+                  {/* Overlay Quick Actions on Hover (desktop) */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 backdrop-blur-xs">
                     {project.liveDemo && (
                       <a
