@@ -703,7 +703,7 @@ function InteractionHint({ zone }: { zone: Zone }) {
           letterSpacing: "0.08em",
         }}
       >
-        E
+        E / ث
       </kbd>
       <span
         style={{
@@ -771,10 +771,10 @@ function WorldRadarTracker({
 function ControlsHUD({ visible }: { visible: boolean }) {
   if (!visible) return null;
   const controls = [
-    { key: "← → / A D", desc: "Move" },
-    { key: "Space / W", desc: "Jump" },
-    { key: "E", desc: "Interact" },
-    { key: "F", desc: "Wave" },
+    { key: "← → / A D (ش ي)", desc: "Move" },
+    { key: "Space / W (ص)", desc: "Jump" },
+    { key: "E (ث)", desc: "Interact" },
+    { key: "F (ب)", desc: "Wave" },
     { key: "Click Road", desc: "Walk There" },
   ];
 
@@ -974,13 +974,16 @@ export default function WorldScene() {
 
   const activeZone = getActiveZone(charState.x, charWidthPx);
 
-  // Keyboard interaction (E / Escape)
+  // Keyboard interaction (E / Escape - English and Arabic)
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-      if (e.key.toLowerCase() === "e") {
+      const code = e.code || "";
+      const key = e.key ? e.key.toLowerCase() : "";
+
+      if (code === "KeyE" || key === "e" || key === "ث") {
         if (activeZone && activePanel === null) {
           if (activeZone.id === "workstation") {
             setWorking(true);
@@ -989,7 +992,7 @@ export default function WorldScene() {
         }
       }
 
-      if (e.key === "Escape") {
+      if (code === "Escape" || key === "escape") {
         setActivePanel(null);
         setWorking(false);
       }

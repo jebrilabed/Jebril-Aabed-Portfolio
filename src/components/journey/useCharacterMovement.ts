@@ -102,49 +102,91 @@ export function useCharacterMovement({
     onStateChange({ ...stateRef.current });
   }, [onStateChange]);
 
-  // Keyboard events
+  // Keyboard events (Supports English and Arabic keyboard layouts)
   useEffect(() => {
     if (disabled) return;
+
+    const isLeftKey = (code: string, key: string) =>
+      code === "ArrowLeft" || key === "arrowleft" || code === "KeyA" || key === "a" || key === "ش";
+
+    const isRightKey = (code: string, key: string) =>
+      code === "ArrowRight" || key === "arrowright" || code === "KeyD" || key === "d" || key === "ي";
+
+    const isJumpKey = (code: string, key: string) =>
+      code === "Space" ||
+      key === " " ||
+      key === "spacebar" ||
+      code === "ArrowUp" ||
+      key === "arrowup" ||
+      code === "KeyW" ||
+      key === "w" ||
+      key === "ص";
+
+    const isWaveKey = (code: string, key: string) =>
+      code === "KeyF" || key === "f" || key === "ب";
 
     const onKeyDown = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-      const key = e.key.toLowerCase();
+      const code = e.code || "";
+      const key = e.key ? e.key.toLowerCase() : "";
 
-      if (["arrowleft", "arrowright", "arrowup", "arrowdown", " "].includes(key)) {
+      if (code === "Space" || key === " " || code.startsWith("Arrow") || key.startsWith("arrow")) {
         e.preventDefault();
       }
 
-      // Any keyboard movement cancels click-to-move target
-      if (["arrowleft", "arrowright", "a", "d", " "].includes(key)) {
+      const left = isLeftKey(code, key);
+      const right = isRightKey(code, key);
+      const jump = isJumpKey(code, key);
+      const wave = isWaveKey(code, key);
+
+      // Any movement cancels click-to-move target
+      if (left) {
+        keysRef.current.add("left");
+        targetXRef.current = null;
+      }
+      if (right) {
+        keysRef.current.add("right");
         targetXRef.current = null;
       }
 
-      keysRef.current.add(key);
-
-      if (stateRef.current.isWorking && ["arrowleft", "arrowright", "a", "d", " "].includes(key)) {
+      if (stateRef.current.isWorking && (left || right || jump)) {
         setWorking(false);
       }
 
-      if ((key === " " || key === "arrowup" || key === "w") && !stateRef.current.isJumping) {
+      if (jump && !stateRef.current.isJumping) {
         triggerJump();
       }
 
-      if (key === "f") {
+      if (wave) {
         startWave();
       }
     };
 
     const onKeyUp = (e: KeyboardEvent) => {
-      keysRef.current.delete(e.key.toLowerCase());
+      const code = e.code || "";
+      const key = e.key ? e.key.toLowerCase() : "";
+
+      if (isLeftKey(code, key)) {
+        keysRef.current.delete("left");
+      }
+      if (isRightKey(code, key)) {
+        keysRef.current.delete("right");
+      }
+    };
+
+    const onBlur = () => {
+      keysRef.current.clear();
     };
 
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("blur", onBlur);
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("blur", onBlur);
     };
   }, [disabled, triggerJump, startWave, setWorking]);
 
@@ -163,8 +205,8 @@ export function useCharacterMovement({
 
       // Handle horizontal movement if not waving and not working
       if (!isWaving && !isWorking) {
-        const movingLeft = keys.has("arrowleft") || keys.has("a");
-        const movingRight = keys.has("arrowright") || keys.has("d");
+        const movingLeft = keys.has("left");
+        const movingRight = keys.has("right");
 
         if (movingLeft) {
           x = Math.max(0, x - MOVE_SPEED);

@@ -24,6 +24,19 @@ const ALL_ANIMATIONS: AnimationState[] = [
 ];
 
 /**
+ * Pixel-exact horizontal offsets to align character feet and center of mass across
+ * all 5 sprite sheets so that transitioning between states (e.g. idle -> waving)
+ * keeps the character's feet and body locked in the exact same spot without shifting.
+ */
+const ANIMATION_OFFSETS: Record<AnimationState, { x: number; y: number }> = {
+  idle: { x: 0, y: 0 },
+  walking: { x: -4, y: 0 },
+  waving: { x: 12, y: 0 },
+  working: { x: 16, y: 0 },
+  jumping: { x: 19, y: 0 },
+};
+
+/**
  * Builds keyframe rules once for all 5 animation states.
  */
 function buildAllKeyframes(): string {
@@ -100,8 +113,10 @@ export default function PixelCharacter({
         style={{
           position: "relative",
           display: "inline-block",
+          width: 90,
+          height: 124,
           transform: facing === "left" ? "scaleX(-1)" : "scaleX(1)",
-          transformOrigin: "center bottom",
+          transformOrigin: "48px bottom",
           flexShrink: 0,
           ...customStyle,
         }}
@@ -112,6 +127,7 @@ export default function PixelCharacter({
           const isCurrent = state === animation;
           const cfg = SPRITE_CONFIG[state];
           const scale = getAnimationScale(state);
+          const offset = ANIMATION_OFFSETS[state];
 
           const displayW = Math.round(cfg.frameWidth * scale);
           const displayH = Math.round(cfg.frameHeight * scale);
@@ -130,6 +146,9 @@ export default function PixelCharacter({
             <div
               key={animKey}
               style={{
+                position: "absolute",
+                left: offset.x,
+                bottom: 0,
                 width: displayW,
                 height: displayH,
                 backgroundImage: `url(${cfg.src})`,
