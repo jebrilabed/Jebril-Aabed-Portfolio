@@ -81,6 +81,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://jebril-aabed-portfolio.vercel.app",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", sizes: "64x64", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   verification: {
     google: "google-site-verification-code", // Placeholder for GSC
   },
