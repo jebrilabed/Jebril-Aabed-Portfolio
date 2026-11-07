@@ -8,9 +8,9 @@ import InfoPanel, { type PanelType } from "./InfoPanel";
 import MobileControls from "./MobileControls";
 
 // ─── World layout constants ───────────────────────────────────────────────────
-const WORLD_WIDTH = 3200; // logical world pixels
-const WORLD_HEIGHT = 560; // logical world pixels (viewport height for scene)
-const GROUND_Y = 340;     // y-position of ground surface (where feet touch)
+const WORLD_WIDTH = 3200;  // Total horizontal world width in px
+const ROAD_HEIGHT = 150;  // Height of the road/sidewalk from the bottom of viewport
+const GROUND_Y = 200;     // Internal physics baseline for character jump calculations
 
 // ─── Interactive zones ────────────────────────────────────────────────────────
 interface Zone {
@@ -86,14 +86,20 @@ function getActiveZone(charX: number, charW: number): Zone | null {
 function PixelTree({ x, style }: { x: number; style?: React.CSSProperties }) {
   return (
     <div
-      style={{ position: "absolute", left: x, bottom: 0, ...style }}
+      style={{
+        position: "absolute",
+        left: x,
+        bottom: ROAD_HEIGHT,
+        zIndex: 6,
+        ...style,
+      }}
       aria-hidden="true"
     >
       {/* Trunk */}
       <div
         style={{
           width: 16,
-          height: 52,
+          height: 54,
           background: "#6e4222",
           margin: "0 auto",
           imageRendering: "pixelated",
@@ -104,7 +110,7 @@ function PixelTree({ x, style }: { x: number; style?: React.CSSProperties }) {
       <div
         style={{
           position: "absolute",
-          bottom: 40,
+          bottom: 42,
           left: "50%",
           transform: "translateX(-50%)",
           width: 80,
@@ -117,7 +123,7 @@ function PixelTree({ x, style }: { x: number; style?: React.CSSProperties }) {
       <div
         style={{
           position: "absolute",
-          bottom: 74,
+          bottom: 76,
           left: "50%",
           transform: "translateX(-50%)",
           width: 60,
@@ -130,7 +136,7 @@ function PixelTree({ x, style }: { x: number; style?: React.CSSProperties }) {
       <div
         style={{
           position: "absolute",
-          bottom: 104,
+          bottom: 106,
           left: "50%",
           transform: "translateX(-50%)",
           width: 38,
@@ -150,9 +156,10 @@ function PixelDesk({ x, working }: { x: number; working: boolean }) {
       style={{
         position: "absolute",
         left: x,
-        bottom: 0,
+        bottom: ROAD_HEIGHT,
         width: 170,
         height: 120,
+        zIndex: 14,
       }}
       aria-hidden="true"
     >
@@ -225,7 +232,7 @@ function PixelDesk({ x, working }: { x: number; working: boolean }) {
           padding: 4,
           gap: 3,
           boxShadow: working
-            ? "0 0 20px 4px rgba(162,231,255,0.5)"
+            ? "0 0 22px 5px rgba(162,231,255,0.6)"
             : "0 0 6px rgba(0,0,0,0.3)",
           transition: "box-shadow 0.4s ease",
         }}
@@ -271,7 +278,6 @@ function PixelDesk({ x, working }: { x: number; working: boolean }) {
           borderRadius: "1px 1px 3px 3px",
         }}
       >
-        {/* Steam */}
         {working && (
           <div
             style={{
@@ -300,7 +306,7 @@ function PixelBookshelf({ x }: { x: number }) {
       style={{
         position: "absolute",
         left: x,
-        bottom: 0,
+        bottom: ROAD_HEIGHT,
         width: 110,
         height: 150,
         background: "#543015",
@@ -311,10 +317,10 @@ function PixelBookshelf({ x }: { x: number }) {
         justifyContent: "flex-end",
         padding: "6px 6px 8px",
         gap: 8,
+        zIndex: 6,
       }}
       aria-hidden="true"
     >
-      {/* Top shelf books */}
       <div style={{ display: "flex", gap: 3, alignItems: "flex-end", height: 42 }}>
         {booksRow2.map((c, i) => (
           <div
@@ -330,9 +336,7 @@ function PixelBookshelf({ x }: { x: number }) {
           />
         ))}
       </div>
-      {/* Shelf divider */}
       <div style={{ height: 4, background: "#361e0b", width: "100%" }} />
-      {/* Bottom shelf books */}
       <div style={{ display: "flex", gap: 3, alignItems: "flex-end", height: 44 }}>
         {booksRow1.map((c, i) => (
           <div
@@ -358,20 +362,25 @@ function PixelMountain({ x, height, color }: { x: number; height: number; color:
       style={{
         position: "absolute",
         left: x,
-        bottom: 0,
+        bottom: ROAD_HEIGHT,
         width: 0,
         height: 0,
         borderLeft: `${height * 0.7}px solid transparent`,
         borderRight: `${height * 0.7}px solid transparent`,
         borderBottom: `${height}px solid ${color}`,
         imageRendering: "pixelated",
+        zIndex: 2,
       }}
       aria-hidden="true"
     />
   );
 }
 
-function GroundLayer() {
+/**
+ * The Road and Ground Foundation Layer
+ * Clearly visible road / street where the character walks
+ */
+function GroundAndRoadLayer() {
   return (
     <div
       style={{
@@ -379,28 +388,97 @@ function GroundLayer() {
         bottom: 0,
         left: 0,
         width: WORLD_WIDTH,
-        height: GROUND_Y + 14,
-        background: "linear-gradient(to bottom, #182334 0%, #0d1522 100%)",
-        borderTop: "4px solid #335985",
+        height: ROAD_HEIGHT,
+        zIndex: 5,
         imageRendering: "pixelated",
       }}
       aria-hidden="true"
     >
-      {/* Ground grass tufts & pixel details */}
-      {Array.from({ length: 64 }, (_, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            left: i * 50 + ((i * 7) % 25),
-            top: 4,
-            width: 4,
-            height: 4,
-            background: i % 2 === 0 ? "#4f84be" : "#2d4d73",
-            imageRendering: "pixelated",
-          }}
-        />
-      ))}
+      {/* ── Road Surface Curb (The top edge where feet step) ── */}
+      <div
+        style={{
+          width: "100%",
+          height: 12,
+          background: "#2a3b50",
+          borderTop: "4px solid #60a5fa",
+          borderBottom: "2px solid #162230",
+          boxShadow: "0 -3px 16px rgba(96, 165, 250, 0.45)",
+          position: "relative",
+        }}
+      >
+        {/* Road surface stone pattern */}
+        {Array.from({ length: 90 }, (_, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: i * 36 + (i % 3) * 6,
+              top: 1,
+              width: 16,
+              height: 4,
+              background: i % 2 === 0 ? "rgba(96, 165, 250, 0.4)" : "rgba(162, 231, 255, 0.25)",
+              borderRadius: 1,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ── Street Pavement / Cyber Walkway Bed ── */}
+      <div
+        style={{
+          width: "100%",
+          height: 48,
+          background: "linear-gradient(to bottom, #1d2a3a 0%, #131c28 100%)",
+          borderBottom: "3px solid #0d141e",
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {/* Neon highway dashes along the road */}
+        {Array.from({ length: 55 }, (_, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: i * 60 + 12,
+              top: 20,
+              width: 28,
+              height: 4,
+              background: "#38bdf8",
+              opacity: 0.75,
+              borderRadius: 2,
+              boxShadow: "0 0 10px rgba(56, 189, 248, 0.6)",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ── Underground Foundation Dirt & Tech Layer ── */}
+      <div
+        style={{
+          width: "100%",
+          height: ROAD_HEIGHT - 60,
+          background: "linear-gradient(to bottom, #101722 0%, #080c14 100%)",
+          position: "relative",
+          borderTop: "1px solid rgba(255,255,255,0.05)",
+        }}
+      >
+        {/* Circuit details in underground */}
+        {Array.from({ length: 45 }, (_, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: i * 75 + 20,
+              top: 15 + (i % 3) * 22,
+              width: 34,
+              height: 2,
+              background: "rgba(135, 129, 255, 0.18)",
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -453,25 +531,25 @@ function ZoneSignpost({ zone, isActive }: { zone: Zone; isActive: boolean }) {
       style={{
         position: "absolute",
         left: zone.x + zone.width / 2,
-        bottom: GROUND_Y + 12,
+        bottom: ROAD_HEIGHT,
         transform: "translateX(-50%)",
         textAlign: "center",
         pointerEvents: "none",
-        zIndex: 2,
+        zIndex: 8,
         transition: "all 0.3s ease",
-        opacity: isActive ? 1 : 0.65,
+        opacity: isActive ? 1 : 0.7,
       }}
       aria-hidden="true"
     >
       <div
         style={{
-          background: isActive ? "rgba(196,192,255,0.18)" : "rgba(22,22,28,0.85)",
-          border: isActive ? "2px solid rgba(196,192,255,0.7)" : "2px solid rgba(70,69,85,0.4)",
+          background: isActive ? "rgba(196,192,255,0.22)" : "rgba(22,22,28,0.88)",
+          border: isActive ? "2px solid rgba(196,192,255,0.8)" : "2px solid rgba(70,69,85,0.45)",
           borderRadius: 8,
           padding: "5px 12px",
           marginBottom: 2,
           backdropFilter: "blur(6px)",
-          boxShadow: isActive ? "0 0 20px rgba(196,192,255,0.35)" : "none",
+          boxShadow: isActive ? "0 0 20px rgba(196,192,255,0.4)" : "none",
           transition: "all 0.3s ease",
           whiteSpace: "nowrap",
         }}
@@ -493,7 +571,7 @@ function ZoneSignpost({ zone, isActive }: { zone: Zone; isActive: boolean }) {
       <div
         style={{
           width: 3,
-          height: 36,
+          height: 38,
           background: isActive ? "#c4c0ff" : "#464555",
           margin: "0 auto",
         }}
@@ -507,7 +585,7 @@ function InteractionHint({ zone }: { zone: Zone }) {
     <div
       style={{
         position: "fixed",
-        bottom: 84,
+        bottom: ROAD_HEIGHT + 145,
         left: "50%",
         transform: "translateX(-50%)",
         zIndex: 35,
@@ -515,8 +593,8 @@ function InteractionHint({ zone }: { zone: Zone }) {
         display: "flex",
         alignItems: "center",
         gap: 10,
-        background: "rgba(19,19,26,0.9)",
-        border: "1px solid rgba(196,192,255,0.4)",
+        background: "rgba(19,19,26,0.92)",
+        border: "1px solid rgba(196,192,255,0.45)",
         borderRadius: 100,
         padding: "8px 18px",
         backdropFilter: "blur(12px)",
@@ -928,25 +1006,25 @@ export default function WorldScene() {
           <Stars />
 
           {/* Background mountain silhouette */}
-          <PixelMountain x={120} height={210} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={420} height={160} color="rgba(20,26,46,0.75)" />
-          <PixelMountain x={780} height={230} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={1180} height={170} color="rgba(18,24,42,0.75)" />
-          <PixelMountain x={1580} height={220} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={1980} height={150} color="rgba(20,26,46,0.75)" />
-          <PixelMountain x={2420} height={200} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={2800} height={180} color="rgba(18,24,42,0.75)" />
+          <PixelMountain x={120} height={230} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={420} height={170} color="rgba(20,26,46,0.75)" />
+          <PixelMountain x={780} height={250} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={1180} height={190} color="rgba(18,24,42,0.75)" />
+          <PixelMountain x={1580} height={240} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={1980} height={160} color="rgba(20,26,46,0.75)" />
+          <PixelMountain x={2420} height={220} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={2800} height={190} color="rgba(18,24,42,0.75)" />
 
-          {/* Decorative Trees */}
+          {/* Decorative Trees on the Road */}
           <PixelTree x={160} />
-          <PixelTree x={520} style={{ transform: "scale(0.85)" }} />
-          <PixelTree x={1080} style={{ transform: "scale(0.9)" }} />
+          <PixelTree x={520} style={{ transform: "scale(0.85)", transformOrigin: "bottom center" }} />
+          <PixelTree x={1080} style={{ transform: "scale(0.9)", transformOrigin: "bottom center" }} />
           <PixelTree x={1640} />
-          <PixelTree x={2180} style={{ transform: "scale(0.85)" }} />
+          <PixelTree x={2180} style={{ transform: "scale(0.85)", transformOrigin: "bottom center" }} />
           <PixelTree x={2720} />
-          <PixelTree x={3060} style={{ transform: "scale(0.95)" }} />
+          <PixelTree x={3060} style={{ transform: "scale(0.95)", transformOrigin: "bottom center" }} />
 
-          {/* Zone Signposts */}
+          {/* Zone Signposts on the Road */}
           {ZONES.map((zone) => (
             <ZoneSignpost
               key={zone.id}
@@ -955,41 +1033,44 @@ export default function WorldScene() {
             />
           ))}
 
-          {/* Zone 1: About Me area decor */}
+          {/* Zone 1: About Me area road decor */}
           <div
             style={{
               position: "absolute",
               left: 230,
-              bottom: GROUND_Y,
+              bottom: ROAD_HEIGHT,
               width: 260,
               height: 4,
-              background: "rgba(196,192,255,0.2)",
+              background: "rgba(196,192,255,0.35)",
               borderRadius: 2,
+              boxShadow: "0 0 10px rgba(196,192,255,0.4)",
+              zIndex: 7,
             }}
             aria-hidden="true"
           />
 
-          {/* Zone 2: Skills Bookshelf */}
+          {/* Zone 2: Skills Bookshelf on the Road */}
           <PixelBookshelf x={820} />
 
-          {/* Zone 3: Workstation Desk & Laptop */}
+          {/* Zone 3: Workstation Desk & Laptop on the Road */}
           <PixelDesk x={1320} working={charState.isWorking} />
 
-          {/* Zone 4: Projects Launchpad */}
+          {/* Zone 4: Projects Launchpad on the Road */}
           <div
             style={{
               position: "absolute",
               left: 1910,
-              bottom: GROUND_Y,
+              bottom: ROAD_HEIGHT,
               width: 120,
               height: 8,
-              background: "rgba(162,231,255,0.25)",
-              border: "2px solid rgba(162,231,255,0.5)",
+              background: "rgba(162,231,255,0.3)",
+              border: "2px solid rgba(162,231,255,0.6)",
               borderRadius: 4,
-              boxShadow: "0 0 16px rgba(162,231,255,0.3)",
+              boxShadow: "0 0 16px rgba(162,231,255,0.4)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              zIndex: 7,
             }}
             aria-hidden="true"
           >
@@ -1005,34 +1086,36 @@ export default function WorldScene() {
             </div>
           </div>
 
-          {/* Zone 5: Experience Certificate Stand */}
+          {/* Zone 5: Experience Certificate Stand on the Road */}
           <div
             style={{
               position: "absolute",
               left: 2420,
-              bottom: GROUND_Y,
+              bottom: ROAD_HEIGHT,
               width: 70,
               height: 85,
-              background: "rgba(22,22,30,0.8)",
-              border: "2px solid rgba(196,192,255,0.3)",
+              background: "rgba(22,22,30,0.85)",
+              border: "2px solid rgba(196,192,255,0.4)",
               borderRadius: 8,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 28,
-              boxShadow: "0 0 12px rgba(196,192,255,0.15)",
+              boxShadow: "0 0 14px rgba(196,192,255,0.25)",
+              zIndex: 7,
             }}
             aria-hidden="true"
           >
             🎓
           </div>
 
-          {/* Zone 6: Contact Mailbox */}
+          {/* Zone 6: Contact Mailbox on the Road */}
           <div
             style={{
               position: "absolute",
               left: 2920,
-              bottom: GROUND_Y,
+              bottom: ROAD_HEIGHT,
+              zIndex: 7,
             }}
             aria-hidden="true"
           >
@@ -1048,7 +1131,7 @@ export default function WorldScene() {
                 justifyContent: "center",
                 fontSize: 20,
                 borderRadius: 4,
-                boxShadow: "0 0 14px rgba(59,130,246,0.3)",
+                boxShadow: "0 0 14px rgba(59,130,246,0.4)",
               }}
             >
               ✉️
@@ -1063,16 +1146,16 @@ export default function WorldScene() {
             />
           </div>
 
-          {/* Ground */}
-          <GroundLayer />
+          {/* ─── Ground & Road Pathway (Visible Street Surface) ─── */}
+          <GroundAndRoadLayer />
 
-          {/* ─── Animated Character ─── */}
+          {/* ─── Animated Character Walking Directly ON the Road ─── */}
           <div
             style={{
               position: "absolute",
               left: charState.x,
-              bottom: WORLD_HEIGHT - charState.y - (WORLD_HEIGHT - GROUND_Y),
-              zIndex: 10,
+              bottom: ROAD_HEIGHT + (GROUND_Y - charState.y),
+              zIndex: 12,
               transition: reducedMotion ? "none" : "bottom 0.02s linear",
             }}
           >
@@ -1089,23 +1172,24 @@ export default function WorldScene() {
               style={{
                 position: "absolute",
                 left: zone.x,
-                bottom: 0,
+                bottom: ROAD_HEIGHT,
                 width: zone.width,
-                height: GROUND_Y + 14,
+                height: 220,
                 background:
                   activeZone?.id === zone.id
-                    ? "rgba(196,192,255,0.035)"
+                    ? "linear-gradient(to top, rgba(196,192,255,0.06), transparent)"
                     : "transparent",
                 borderLeft:
                   activeZone?.id === zone.id
-                    ? "1px solid rgba(196,192,255,0.2)"
+                    ? "1px dashed rgba(196,192,255,0.25)"
                     : "none",
                 borderRight:
                   activeZone?.id === zone.id
-                    ? "1px solid rgba(196,192,255,0.2)"
+                    ? "1px dashed rgba(196,192,255,0.25)"
                     : "none",
                 transition: "all 0.3s ease",
                 pointerEvents: "none",
+                zIndex: 4,
               }}
               aria-hidden="true"
             />
