@@ -1403,7 +1403,7 @@ export default function WorldScene() {
               position: "absolute",
               left: 0,
               bottom: ROAD_HEIGHT,
-              transform: `translate3d(${charState.x}px, -${GROUND_Y - charState.y}px, 0)`,
+              transform: `translate3d(${Math.round(charState.x)}px, -${Math.round(GROUND_Y - charState.y)}px, 0)`,
               zIndex: 12,
               willChange: "transform",
             }}
