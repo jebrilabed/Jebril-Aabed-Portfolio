@@ -143,6 +143,9 @@ export default function PixelCharacter({
                 display: isCurrent ? "block" : "none",
                 transform: cfg.nativeFacing === "left" ? "scaleX(-1)" : "none",
                 transformOrigin: "center bottom",
+                /* Eliminate any sub-pixel fringe by compositing against a fully-transparent
+                   background — prevents white halo bleed even if any residual AA remains */
+                isolation: "isolate",
               }}
             />
           );
