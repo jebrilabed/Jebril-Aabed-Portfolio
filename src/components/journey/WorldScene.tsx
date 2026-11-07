@@ -6,6 +6,7 @@ import PixelCharacter from "./PixelCharacter";
 import { useCharacterMovement, type CharacterState } from "./useCharacterMovement";
 import InfoPanel, { type PanelType } from "./InfoPanel";
 import MobileControls from "./MobileControls";
+import { retroAudio } from "./retroAudio";
 
 // ─── World layout constants ───────────────────────────────────────────────────
 const WORLD_WIDTH = 3200;  // Total horizontal world width in px
@@ -83,6 +84,73 @@ function getActiveZone(charX: number, charW: number): Zone | null {
 }
 
 // ─── Pixel Art Scenery ────────────────────────────────────────────────────────
+
+function PixelStreetLamp({ x }: { x: number }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: x,
+        bottom: ROAD_HEIGHT,
+        width: 40,
+        height: 140,
+        zIndex: 7,
+        pointerEvents: "none",
+      }}
+      aria-hidden="true"
+    >
+      {/* Light cone shining down on the road */}
+      <div
+        style={{
+          position: "absolute",
+          top: 14,
+          left: -40,
+          width: 120,
+          height: 130,
+          background: "radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.22) 0%, rgba(56,189,248,0.06) 55%, transparent 75%)",
+          pointerEvents: "none",
+        }}
+      />
+      {/* Lamp post pole */}
+      <div
+        style={{
+          position: "absolute",
+          left: 18,
+          bottom: 0,
+          width: 4,
+          height: 120,
+          background: "#334155",
+          border: "1px solid #1e293b",
+        }}
+      />
+      {/* Horizontal lamp arm */}
+      <div
+        style={{
+          position: "absolute",
+          left: 10,
+          top: 18,
+          width: 20,
+          height: 3,
+          background: "#475569",
+        }}
+      />
+      {/* Glowing lamp fixture */}
+      <div
+        style={{
+          position: "absolute",
+          left: 15,
+          top: 19,
+          width: 10,
+          height: 8,
+          background: "#38bdf8",
+          boxShadow: "0 0 16px 4px rgba(56,189,248,0.7)",
+          borderRadius: "1px 1px 3px 3px",
+        }}
+      />
+    </div>
+  );
+}
+
 function PixelTree({ x, style }: { x: number; style?: React.CSSProperties }) {
   return (
     <div
@@ -237,7 +305,6 @@ function PixelDesk({ x, working }: { x: number; working: boolean }) {
           transition: "box-shadow 0.4s ease",
         }}
       >
-        {/* Animated code lines */}
         <div
           style={{
             width: "70%",
@@ -362,14 +429,13 @@ function PixelMountain({ x, height, color }: { x: number; height: number; color:
       style={{
         position: "absolute",
         left: x,
-        bottom: ROAD_HEIGHT,
+        bottom: 0,
         width: 0,
         height: 0,
-        borderLeft: `${height * 0.7}px solid transparent`,
-        borderRight: `${height * 0.7}px solid transparent`,
+        borderLeft: `${height * 0.75}px solid transparent`,
+        borderRight: `${height * 0.75}px solid transparent`,
         borderBottom: `${height}px solid ${color}`,
         imageRendering: "pixelated",
-        zIndex: 2,
       }}
       aria-hidden="true"
     />
@@ -378,7 +444,6 @@ function PixelMountain({ x, height, color }: { x: number; height: number; color:
 
 /**
  * The Road and Ground Foundation Layer
- * Clearly visible road / street where the character walks
  */
 function GroundAndRoadLayer() {
   return (
@@ -394,7 +459,7 @@ function GroundAndRoadLayer() {
       }}
       aria-hidden="true"
     >
-      {/* ── Road Surface Curb (The top edge where feet step) ── */}
+      {/* Road Surface Curb */}
       <div
         style={{
           width: "100%",
@@ -406,7 +471,6 @@ function GroundAndRoadLayer() {
           position: "relative",
         }}
       >
-        {/* Road surface stone pattern */}
         {Array.from({ length: 90 }, (_, i) => (
           <div
             key={i}
@@ -423,7 +487,7 @@ function GroundAndRoadLayer() {
         ))}
       </div>
 
-      {/* ── Street Pavement / Cyber Walkway Bed ── */}
+      {/* Street Pavement / Cyber Walkway Bed */}
       <div
         style={{
           width: "100%",
@@ -435,7 +499,6 @@ function GroundAndRoadLayer() {
           alignItems: "center",
         }}
       >
-        {/* Neon highway dashes along the road */}
         {Array.from({ length: 55 }, (_, i) => (
           <div
             key={i}
@@ -454,7 +517,7 @@ function GroundAndRoadLayer() {
         ))}
       </div>
 
-      {/* ── Underground Foundation Dirt & Tech Layer ── */}
+      {/* Underground Foundation Dirt & Tech Layer */}
       <div
         style={{
           width: "100%",
@@ -464,7 +527,6 @@ function GroundAndRoadLayer() {
           borderTop: "1px solid rgba(255,255,255,0.05)",
         }}
       >
-        {/* Circuit details in underground */}
         {Array.from({ length: 45 }, (_, i) => (
           <div
             key={i}
@@ -483,7 +545,7 @@ function GroundAndRoadLayer() {
   );
 }
 
-// Precomputed stars for deterministic, pure rendering without Math.random during render
+// Precomputed stars for deterministic, pure rendering
 const STATIC_STARS = Array.from({ length: 65 }, (_, i) => ({
   x: ((i * 49.3 + 17) % 3180),
   y: ((i * 23.7 + 11) % 170),
@@ -632,6 +694,53 @@ function InteractionHint({ zone }: { zone: Zone }) {
   );
 }
 
+/**
+ * World Waypoint Radar in the Header
+ * Allows users to track their location and click any waypoint to navigate
+ */
+function WorldRadarTracker({
+  charX,
+  onNavigateToX,
+}: {
+  charX: number;
+  onNavigateToX: (x: number) => void;
+}) {
+  const percent = Math.min(100, Math.max(0, (charX / WORLD_WIDTH) * 100));
+
+  return (
+    <div className="hidden lg:flex items-center gap-3 bg-surface-low/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-outline-variant/30">
+      <div className="relative w-44 h-1.5 bg-surface-high rounded-full overflow-visible">
+        {/* Progress track */}
+        <div
+          className="absolute left-0 top-0 h-full bg-gradient-to-r from-primary to-secondary rounded-full"
+          style={{ width: `${percent}%` }}
+        />
+        {/* Character Pin */}
+        <div
+          className="absolute -top-1.5 w-4 h-4 rounded-full bg-secondary border-2 border-background shadow-[0_0_10px_#38bdf8] -translate-x-1/2 transition-all duration-75 flex items-center justify-center text-[8px]"
+          style={{ left: `${percent}%` }}
+        >
+          📍
+        </div>
+      </div>
+
+      {/* Zone quick jump pills */}
+      <div className="flex items-center gap-1.5">
+        {ZONES.map((z) => (
+          <button
+            key={z.id}
+            onClick={() => onNavigateToX(z.x + z.width / 2)}
+            title={z.label}
+            className="text-[10px] font-label text-on-surface-variant hover:text-primary transition-colors uppercase px-1 py-0.5 rounded hover:bg-surface-high"
+          >
+            {z.label.split(" ")[0]}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ControlsHUD({ visible }: { visible: boolean }) {
   if (!visible) return null;
   const controls = [
@@ -639,6 +748,7 @@ function ControlsHUD({ visible }: { visible: boolean }) {
     { key: "Space / W", desc: "Jump" },
     { key: "E", desc: "Interact" },
     { key: "F", desc: "Wave" },
+    { key: "Click Road", desc: "Walk There" },
   ];
 
   return (
@@ -653,7 +763,7 @@ function ControlsHUD({ visible }: { visible: boolean }) {
         borderRadius: 14,
         padding: "10px 14px",
         backdropFilter: "blur(12px)",
-        minWidth: 150,
+        minWidth: 155,
       }}
       className="hidden sm:block"
     >
@@ -778,9 +888,10 @@ export default function WorldScene() {
   const [cameraX, setCameraX] = useState(0);
   const [activePanel, setActivePanel] = useState<PanelType>(null);
   const [showHUD, setShowHUD] = useState(true);
+  const [audioEnabled, setAudioEnabled] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [clickMarker, setClickMarker] = useState<{ x: number } | null>(null);
 
-  // Character width reference for collision
   const charWidthPx = 90;
 
   useEffect(() => {
@@ -797,7 +908,7 @@ export default function WorldScene() {
     setCharState(state);
   }, []);
 
-  const { startWave, triggerJump, setWorking } = useCharacterMovement({
+  const { startWave, triggerJump, setWorking, moveTo } = useCharacterMovement({
     worldWidth: WORLD_WIDTH,
     characterWidth: charWidthPx,
     groundY: GROUND_Y,
@@ -806,7 +917,7 @@ export default function WorldScene() {
     reducedMotion,
   });
 
-  // Camera follow logic
+  // Smooth camera follow
   useEffect(() => {
     if (!viewportRef.current) return;
     const vpW = viewportRef.current.clientWidth;
@@ -859,6 +970,45 @@ export default function WorldScene() {
     setActivePanel(panel);
   };
 
+  // Navigate directly to a specific panel and walk the character there
+  const handleNavigateSection = (panel: PanelType) => {
+    setActivePanel(panel);
+    const targetZone = ZONES.find((z) => z.id === panel);
+    if (targetZone) {
+      if (panel === "workstation") {
+        setWorking(true);
+        moveTo(targetZone.x + 25);
+      } else {
+        setWorking(false);
+        moveTo(targetZone.x + targetZone.width / 2 - 40);
+      }
+    }
+  };
+
+  // Click / Tap on the Road to Walk There
+  const handleRoadClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (activePanel !== null) return;
+    const bounds = e.currentTarget.getBoundingClientRect();
+    const clickXOnScreen = e.clientX - bounds.left;
+    const worldTargetX = cameraX + clickXOnScreen;
+
+    setClickMarker({ x: worldTargetX });
+    moveTo(worldTargetX);
+
+    setTimeout(() => {
+      setClickMarker(null);
+    }, 900);
+  };
+
+  const toggleAudio = () => {
+    const next = !audioEnabled;
+    setAudioEnabled(next);
+    retroAudio.setEnabled(next);
+    if (next) {
+      retroAudio.playInteract();
+    }
+  };
+
   // Mobile control helpers
   const handleMobileLeft = (active: boolean) => {
     window.dispatchEvent(
@@ -900,6 +1050,10 @@ export default function WorldScene() {
           from { opacity: 0; transform: translateX(-50%) translateY(10px); }
           to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
+        @keyframes targetPulse {
+          0% { transform: scale(0.5); opacity: 1; }
+          100% { transform: scale(2.2); opacity: 0; }
+        }
       `}</style>
 
       {/* Top Navbar */}
@@ -928,32 +1082,33 @@ export default function WorldScene() {
           <span>Back to Portfolio</span>
         </Link>
 
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary" />
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-space-grotesk)",
-              fontSize: 11,
-              color: "#c7c4d8",
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              fontWeight: 600,
-            }}
-          >
-            Jebril&apos;s Pixel Journey
-          </span>
-        </div>
+        {/* World Tracker Radar */}
+        <WorldRadarTracker charX={charState.x} onNavigateToX={moveTo} />
 
-        <button
-          onClick={() => setShowHUD((h) => !h)}
-          className="text-on-surface-variant hover:text-foreground transition-colors font-label text-[10px] uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg px-2.5 py-1 border border-outline-variant/30 hidden sm:block"
-          aria-label="Toggle controls HUD"
-        >
-          {showHUD ? "Hide Controls" : "Show Controls"}
-        </button>
+        <div className="flex items-center gap-2.5">
+          {/* Sound Toggle Button */}
+          <button
+            onClick={toggleAudio}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-widest border transition-all ${
+              audioEnabled
+                ? "bg-secondary/20 border-secondary text-secondary shadow-[0_0_12px_rgba(56,189,248,0.4)]"
+                : "bg-surface-high/60 border-outline-variant/30 text-on-surface-variant hover:text-foreground"
+            }`}
+            aria-label="Toggle retro audio"
+          >
+            <span className="text-xs">{audioEnabled ? "🔊" : "🔇"}</span>
+            <span className="hidden sm:inline">{audioEnabled ? "Sound: ON" : "Sound: OFF"}</span>
+          </button>
+
+          {/* Controls HUD Toggle */}
+          <button
+            onClick={() => setShowHUD((h) => !h)}
+            className="text-on-surface-variant hover:text-foreground transition-colors font-label text-[10px] uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg px-2.5 py-1 border border-outline-variant/30 hidden sm:block"
+            aria-label="Toggle controls HUD"
+          >
+            {showHUD ? "Hide Controls" : "Show Controls"}
+          </button>
+        </div>
       </header>
 
       {/* Controls HUD */}
@@ -968,6 +1123,7 @@ export default function WorldScene() {
       {/* Main Viewport */}
       <main
         ref={viewportRef}
+        onClick={handleRoadClick}
         style={{
           position: "fixed",
           inset: 0,
@@ -976,10 +1132,54 @@ export default function WorldScene() {
           overflow: "hidden",
           background: "linear-gradient(to bottom, #05060d 0%, #0d0f1a 50%, #131318 100%)",
           userSelect: "none",
+          cursor: "crosshair",
         }}
         aria-label="Interactive pixel art world viewport"
       >
-        {/* World container translated by cameraX */}
+        {/* ── PARALLAX LAYER 1: Deep Sky & Stars (Moves slowest: 0.12x) ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: WORLD_WIDTH,
+            transform: `translateX(-${cameraX * 0.12}px)`,
+            pointerEvents: "none",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(ellipse at 25% 25%, rgba(135,129,255,0.1), transparent 60%), radial-gradient(ellipse at 75% 20%, rgba(60,215,255,0.08), transparent 55%)",
+            }}
+          />
+          <Stars />
+        </div>
+
+        {/* ── PARALLAX LAYER 2: Distant Mountains (Moves at 0.35x) ── */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: ROAD_HEIGHT,
+            left: 0,
+            width: WORLD_WIDTH,
+            transform: `translateX(-${cameraX * 0.35}px)`,
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        >
+          <PixelMountain x={100} height={230} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={420} height={170} color="rgba(20,26,46,0.75)" />
+          <PixelMountain x={800} height={250} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={1220} height={190} color="rgba(18,24,42,0.75)" />
+          <PixelMountain x={1640} height={240} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={2060} height={160} color="rgba(20,26,46,0.75)" />
+          <PixelMountain x={2480} height={220} color="rgba(24,30,52,0.75)" />
+          <PixelMountain x={2880} height={190} color="rgba(18,24,42,0.75)" />
+        </div>
+
+        {/* ── PARALLAX LAYER 3: Main World, Road, Trees & Interactive Objects (1.0x) ── */}
         <div
           style={{
             position: "absolute",
@@ -991,37 +1191,20 @@ export default function WorldScene() {
             transition: reducedMotion ? "none" : "transform 0.04s linear",
           }}
         >
-          {/* Ambient sky background gradients */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "radial-gradient(ellipse at 25% 25%, rgba(135,129,255,0.1), transparent 60%), radial-gradient(ellipse at 75% 20%, rgba(60,215,255,0.08), transparent 55%)",
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* Stars */}
-          <Stars />
-
-          {/* Background mountain silhouette */}
-          <PixelMountain x={120} height={230} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={420} height={170} color="rgba(20,26,46,0.75)" />
-          <PixelMountain x={780} height={250} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={1180} height={190} color="rgba(18,24,42,0.75)" />
-          <PixelMountain x={1580} height={240} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={1980} height={160} color="rgba(20,26,46,0.75)" />
-          <PixelMountain x={2420} height={220} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={2800} height={190} color="rgba(18,24,42,0.75)" />
+          {/* Cyber Streetlamps along the road */}
+          <PixelStreetLamp x={480} />
+          <PixelStreetLamp x={1080} />
+          <PixelStreetLamp x={1620} />
+          <PixelStreetLamp x={2160} />
+          <PixelStreetLamp x={2680} />
 
           {/* Decorative Trees on the Road */}
           <PixelTree x={160} />
-          <PixelTree x={520} style={{ transform: "scale(0.85)", transformOrigin: "bottom center" }} />
-          <PixelTree x={1080} style={{ transform: "scale(0.9)", transformOrigin: "bottom center" }} />
-          <PixelTree x={1640} />
-          <PixelTree x={2180} style={{ transform: "scale(0.85)", transformOrigin: "bottom center" }} />
-          <PixelTree x={2720} />
+          <PixelTree x={540} style={{ transform: "scale(0.85)", transformOrigin: "bottom center" }} />
+          <PixelTree x={1120} style={{ transform: "scale(0.9)", transformOrigin: "bottom center" }} />
+          <PixelTree x={1680} />
+          <PixelTree x={2220} style={{ transform: "scale(0.85)", transformOrigin: "bottom center" }} />
+          <PixelTree x={2740} />
           <PixelTree x={3060} style={{ transform: "scale(0.95)", transformOrigin: "bottom center" }} />
 
           {/* Zone Signposts on the Road */}
@@ -1146,6 +1329,24 @@ export default function WorldScene() {
             />
           </div>
 
+          {/* Click to move destination ripple marker */}
+          {clickMarker && (
+            <div
+              style={{
+                position: "absolute",
+                left: clickMarker.x - 12,
+                bottom: ROAD_HEIGHT - 6,
+                width: 24,
+                height: 12,
+                border: "2px solid #38bdf8",
+                borderRadius: "50%",
+                animation: "targetPulse 0.8s ease-out forwards",
+                pointerEvents: "none",
+                zIndex: 15,
+              }}
+            />
+          )}
+
           {/* ─── Ground & Road Pathway (Visible Street Surface) ─── */}
           <GroundAndRoadLayer />
 
@@ -1208,8 +1409,12 @@ export default function WorldScene() {
         />
       </div>
 
-      {/* Modal Info Panel */}
-      <InfoPanel panel={activePanel} onClose={handleClosePanel} />
+      {/* Modal Info Panel with Inter-Section Navigation */}
+      <InfoPanel
+        panel={activePanel}
+        onClose={handleClosePanel}
+        onNavigate={handleNavigateSection}
+      />
     </>
   );
 }
