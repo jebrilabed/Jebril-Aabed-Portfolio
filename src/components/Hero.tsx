@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { portfolioData } from "@/data/portfolio";
 
 const ROLES = [
@@ -149,6 +150,44 @@ export default function Hero() {
             <span>Contact Me</span>
             <span className="material-symbols-outlined text-sm text-secondary">chat</span>
           </motion.a>
+        </motion.div>
+
+        {/* ── Pixel Art Journey Entry Point ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-6 flex justify-center md:justify-center"
+        >
+          <Link
+            href="/journey"
+            className="group relative inline-flex items-center gap-3 px-6 py-3 rounded-2xl border border-primary/20 bg-primary/5 hover:bg-primary/10 hover:border-primary/40 transition-all duration-300 cursor-pointer overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary/50"
+          >
+            {/* Pixel sparkle decorations */}
+            <span
+              aria-hidden="true"
+              className="absolute left-3 top-2 w-1 h-1 bg-secondary opacity-60 group-hover:opacity-100 transition-opacity"
+              style={{ imageRendering: "pixelated" }}
+            />
+            <span
+              aria-hidden="true"
+              className="absolute right-4 bottom-2 w-1 h-1 bg-primary opacity-40 group-hover:opacity-80 transition-opacity"
+              style={{ imageRendering: "pixelated" }}
+            />
+            {/* Pixel character mini-icon */}
+            <span
+              aria-hidden="true"
+              className="text-xl leading-none group-hover:scale-110 transition-transform duration-200"
+            >
+              🎮
+            </span>
+            <span className="font-label text-xs tracking-[0.2em] uppercase font-bold text-primary group-hover:text-secondary transition-colors">
+              Explore My Pixel World
+            </span>
+            <span className="material-symbols-outlined text-sm text-primary/60 group-hover:translate-x-1 transition-transform">
+              arrow_forward
+            </span>
+          </Link>
         </motion.div>
       </div>
 

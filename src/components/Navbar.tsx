@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, useScroll } from "framer-motion";
+import Link from "next/link";
 import { portfolioData } from "@/data/portfolio";
 import { useState, useEffect, useRef } from "react";
 
@@ -141,18 +142,28 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Hire Me Button (Desktop) */}
-        <motion.a
-          href="#contact"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(196,192,255,0.3)" }}
-          whileTap={{ scale: 0.95 }}
-          className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-primary/10 text-primary border border-primary/20 rounded-full font-label text-[10px] tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-          Hire Me
-        </motion.a>
+        {/* Right CTA Group (Desktop) */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            href="/journey"
+            className="flex items-center gap-1.5 px-4 py-2 bg-secondary/10 hover:bg-secondary/20 text-secondary border border-secondary/30 rounded-full font-label text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-[0_0_15px_rgba(162,231,255,0.15)]"
+          >
+            <span className="text-xs">🎮</span>
+            Pixel Journey
+          </Link>
+
+          <motion.a
+            href="#contact"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05, boxShadow: "0 0 25px rgba(196,192,255,0.3)" }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary border border-primary/20 rounded-full font-label text-[10px] tracking-[0.2em] uppercase transition-all duration-300 cursor-pointer"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            Hire Me
+          </motion.a>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -215,6 +226,18 @@ export default function Navbar() {
                     </motion.a>
                   );
                 })}
+                {/* Interactive Journey Mobile Link */}
+                <Link
+                  href="/journey"
+                  onClick={handleLinkClick}
+                  className="mt-3 flex items-center justify-between p-3.5 rounded-2xl bg-secondary/10 border border-secondary/30 text-secondary font-label text-xs uppercase tracking-widest font-bold shadow-[0_0_20px_rgba(162,231,255,0.15)]"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="text-base">🎮</span>
+                    Pixel Art Journey
+                  </span>
+                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                </Link>
               </div>
 
               {/* Status & Contact Button */}
@@ -239,7 +262,7 @@ export default function Navbar() {
                   onClick={handleLinkClick}
                   className="block w-full py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline font-bold uppercase tracking-[0.2em] text-center rounded-2xl shadow-[0_15px_40px_rgba(196,192,255,0.2)]"
                 >
-                  Let's Talk
+                  Let&apos;s Talk
                 </motion.a>
               </div>
 
