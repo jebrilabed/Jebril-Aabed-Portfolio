@@ -129,7 +129,7 @@ export default function Projects() {
                 {/* Project Header: Number and Category */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="font-label text-xs tracking-widest text-secondary font-bold uppercase">
-                    // 0{index + 1}
+                    {"// 0"}{index + 1}
                   </span>
                   <div className="flex items-center gap-2">
                     {project.liveDemo && (

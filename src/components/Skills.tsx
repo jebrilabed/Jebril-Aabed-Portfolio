@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { portfolioData } from "@/data/portfolio";
 
 const skillIcons: Record<string, string> = {
   "Next.js": "rocket_launch",

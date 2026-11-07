@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import type { AnimationState } from "./sprite-config";
 import { retroAudio } from "./retroAudio";
 
@@ -24,7 +24,7 @@ interface UseCharacterMovementProps {
 }
 
 const MOVE_SPEED = 4.2;
-const JUMP_FORCE = -13.5;
+const JUMP_FORCE = -11.5;
 const GRAVITY = 0.68;
 const WAVE_DURATION = 900; // ms (6 frames @ 7fps ≈ 857ms)
 
@@ -52,7 +52,6 @@ export function useCharacterMovement({
   const velYRef = useRef(0);
   const rafRef = useRef<number | null>(null);
   const waveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [, forceRender] = useState(0);
 
   const getState = useCallback(() => stateRef.current, []);
 
@@ -73,14 +72,12 @@ export function useCharacterMovement({
 
     stateRef.current = { ...stateRef.current, isWaving: true, animation: "waving" };
     onStateChange({ ...stateRef.current });
-    forceRender((n) => n + 1);
 
     if (waveTimerRef.current) clearTimeout(waveTimerRef.current);
     waveTimerRef.current = setTimeout(() => {
       if (stateRef.current.isWaving) {
         stateRef.current = { ...stateRef.current, isWaving: false, animation: "idle" };
         onStateChange({ ...stateRef.current });
-        forceRender((n) => n + 1);
       }
     }, WAVE_DURATION);
   }, [onStateChange]);
@@ -93,7 +90,6 @@ export function useCharacterMovement({
     stateRef.current = { ...stateRef.current, isJumping: true, animation: "jumping" };
     velYRef.current = JUMP_FORCE;
     onStateChange({ ...stateRef.current });
-    forceRender((n) => n + 1);
   }, [onStateChange, reducedMotion]);
 
   const setWorking = useCallback((working: boolean) => {
@@ -104,7 +100,6 @@ export function useCharacterMovement({
       animation: working ? "working" : "idle",
     };
     onStateChange({ ...stateRef.current });
-    forceRender((n) => n + 1);
   }, [onStateChange]);
 
   // Keyboard events
@@ -229,7 +224,6 @@ export function useCharacterMovement({
       if (changed) {
         stateRef.current = { x, y, facing, animation, isJumping, isWaving, isWorking };
         onStateChange({ ...stateRef.current });
-        forceRender((n) => n + 1);
       }
 
       rafRef.current = requestAnimationFrame(loop);

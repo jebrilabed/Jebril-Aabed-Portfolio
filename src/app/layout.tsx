@@ -95,7 +95,7 @@ export const metadata: Metadata = {
   },
 };
 
-import DevelopmentNotice from "@/components/DevelopmentNotice";
+// import DevelopmentNotice from "@/components/DevelopmentNotice";
 
 export default function RootLayout({
   children,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import {
   SPRITE_CONFIG,
   getAnimationScale,
@@ -58,9 +58,7 @@ function buildAllKeyframes(): string {
  * when switching between animations (e.g. idle -> walking -> jumping):
  * All 5 sprite layers are pre-mounted in the DOM with their background images
  * permanently bound and loaded. Switching states merely toggles visibility.
- *
- * This provides 0ms, 120 FPS instantaneous animation transitions without
- * any DOM re-mounts, CSS re-parsing, or asset fetching delays.
+ * One-shot animations (jumping, waving) reset dynamically to restart cleanly from frame 0.
  */
 export default function PixelCharacter({
   animation,
@@ -71,6 +69,16 @@ export default function PixelCharacter({
 }: PixelCharacterProps) {
   const currentCfg = SPRITE_CONFIG[animation];
   const currentDuration = currentCfg.frameCount / currentCfg.fps;
+
+  const [prevAnim, setPrevAnim] = useState(animation);
+  const [animKeySuffix, setAnimKeySuffix] = useState(0);
+
+  if (animation !== prevAnim) {
+    setPrevAnim(animation);
+    if (animation === "jumping" || animation === "waving") {
+      setAnimKeySuffix((s) => s + 1);
+    }
+  }
 
   // Generate static CSS keyframe definitions once
   const cssKeyframes = useMemo(() => buildAllKeyframes(), []);
@@ -113,9 +121,14 @@ export default function PixelCharacter({
           const iterationCount = cfg.loop ? "infinite" : "1";
           const fillMode = cfg.loop ? "none" : "forwards";
 
+          const animKey =
+            state === "jumping" || state === "waving"
+              ? `${state}-${animKeySuffix}`
+              : state;
+
           return (
             <div
-              key={state}
+              key={animKey}
               style={{
                 width: displayW,
                 height: displayH,
@@ -124,8 +137,12 @@ export default function PixelCharacter({
                 backgroundPosition: "0px 0px",
                 backgroundRepeat: "no-repeat",
                 imageRendering: "pixelated",
-                animation: `sprite_anim_${state} ${duration}s steps(1, end) ${iterationCount} ${fillMode}`,
+                animation: isCurrent
+                  ? `sprite_anim_${state} ${duration}s steps(1, end) ${iterationCount} ${fillMode}`
+                  : "none",
                 display: isCurrent ? "block" : "none",
+                transform: cfg.nativeFacing === "left" ? "scaleX(-1)" : "none",
+                transformOrigin: "center bottom",
               }}
             />
           );

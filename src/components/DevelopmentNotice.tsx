@@ -1,15 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { portfolioData } from "@/data/portfolio";
 
-export default function DevelopmentNotice() {
-  const [mounted, setMounted] = useState(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function DevelopmentNotice() {
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   if (!mounted) return null;
 

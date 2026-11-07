@@ -423,7 +423,21 @@ function PixelBookshelf({ x }: { x: number }) {
   );
 }
 
-function PixelMountain({ x, height, color }: { x: number; height: number; color: string }) {
+function PixelMountain({
+  x,
+  height,
+  color,
+  peakColor = "rgba(162, 231, 255, 0.3)",
+}: {
+  x: number;
+  height: number;
+  color: string;
+  peakColor?: string;
+}) {
+  const halfWidth = Math.round(height * 0.75);
+  const peakHeight = Math.round(height * 0.28);
+  const peakHalfWidth = Math.round(halfWidth * 0.28);
+
   return (
     <div
       style={{
@@ -432,13 +446,26 @@ function PixelMountain({ x, height, color }: { x: number; height: number; color:
         bottom: 0,
         width: 0,
         height: 0,
-        borderLeft: `${height * 0.75}px solid transparent`,
-        borderRight: `${height * 0.75}px solid transparent`,
+        borderLeft: `${halfWidth}px solid transparent`,
+        borderRight: `${halfWidth}px solid transparent`,
         borderBottom: `${height}px solid ${color}`,
         imageRendering: "pixelated",
       }}
       aria-hidden="true"
-    />
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: -peakHalfWidth,
+          width: 0,
+          height: 0,
+          borderLeft: `${peakHalfWidth}px solid transparent`,
+          borderRight: `${peakHalfWidth}px solid transparent`,
+          borderBottom: `${peakHeight}px solid ${peakColor}`,
+        }}
+      />
+    </div>
   );
 }
 
@@ -885,20 +912,41 @@ export default function WorldScene() {
     isWaving: false,
     isWorking: false,
   });
-  const [cameraX, setCameraX] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState(() => {
+    if (typeof window !== "undefined") return window.innerWidth;
+    return 1200;
+  });
   const [activePanel, setActivePanel] = useState<PanelType>(null);
   const [showHUD, setShowHUD] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    return false;
+  });
   const [clickMarker, setClickMarker] = useState<{ x: number } | null>(null);
 
   const charWidthPx = 90;
 
   useEffect(() => {
+    const updateVp = () => {
+      if (viewportRef.current) {
+        setViewportWidth(viewportRef.current.clientWidth);
+      } else if (typeof window !== "undefined") {
+        setViewportWidth(window.innerWidth);
+      }
+    };
+    const rafId = requestAnimationFrame(updateVp);
+    window.addEventListener("resize", updateVp);
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("resize", updateVp);
+    };
+  }, []);
+
+  useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches) {
-      setReducedMotion(true);
-    }
     const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
@@ -917,17 +965,12 @@ export default function WorldScene() {
     reducedMotion,
   });
 
-  // Smooth camera follow
-  useEffect(() => {
-    if (!viewportRef.current) return;
-    const vpW = viewportRef.current.clientWidth;
-    const targetCamX = clamp(charState.x - vpW / 2 + charWidthPx / 2, 0, WORLD_WIDTH - vpW);
-    if (reducedMotion) {
-      setCameraX(targetCamX);
-    } else {
-      setCameraX((prev) => prev + (targetCamX - prev) * 0.12);
-    }
-  }, [charState.x, reducedMotion]);
+  // Camera X position computed synchronously without cascading setState in useEffect
+  const cameraX = clamp(
+    charState.x - viewportWidth / 2 + charWidthPx / 2,
+    0,
+    WORLD_WIDTH - viewportWidth
+  );
 
   const activeZone = getActiveZone(charState.x, charWidthPx);
 
@@ -1189,6 +1232,7 @@ export default function WorldScene() {
             height: "100%",
             transform: `translateX(-${cameraX}px)`,
             transition: reducedMotion ? "none" : "transform 0.04s linear",
+            zIndex: 10,
           }}
         >
           {/* Cyber Streetlamps along the road */}
@@ -1354,10 +1398,11 @@ export default function WorldScene() {
           <div
             style={{
               position: "absolute",
-              left: charState.x,
-              bottom: ROAD_HEIGHT + (GROUND_Y - charState.y),
+              left: 0,
+              bottom: ROAD_HEIGHT,
+              transform: `translate3d(${charState.x}px, -${GROUND_Y - charState.y}px, 0)`,
               zIndex: 12,
-              transition: reducedMotion ? "none" : "bottom 0.02s linear",
+              willChange: "transform",
             }}
           >
             <PixelCharacter

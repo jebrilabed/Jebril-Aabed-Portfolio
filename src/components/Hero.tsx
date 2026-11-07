@@ -104,7 +104,7 @@ export default function Hero() {
               transition={{ duration: 0.4, ease: "easeOut" }}
               className="font-label text-base md:text-2xl text-secondary font-bold tracking-wider uppercase flex items-center gap-2"
             >
-              <span className="text-primary/60 font-mono">//</span>
+              <span className="text-primary/60 font-mono">{"//"}</span>
               {ROLES[roleIndex]}
             </motion.div>
           </AnimatePresence>

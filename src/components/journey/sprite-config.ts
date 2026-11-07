@@ -26,6 +26,8 @@ export interface SpriteConfig {
   loop: boolean;
   /** Target visual height in world pixels to ensure character size consistency */
   visualHeight: number;
+  /** Natural facing direction of the character in the raw sprite sheet asset */
+  nativeFacing?: "left" | "right";
 }
 
 /**
@@ -101,9 +103,10 @@ export const SPRITE_CONFIG: Record<AnimationState, SpriteConfig> = {
     frameWidth: 2109 / 6, // 351.5
     frameHeight: 746,
     frameCount: 6,
-    fps: 8,
+    fps: 10,
     loop: false,
     visualHeight: TARGET_CHARACTER_HEIGHT,
+    nativeFacing: "left",
   },
 };
 
