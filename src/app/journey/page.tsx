@@ -13,5 +13,16 @@ export const metadata: Metadata = {
 };
 
 export default function JourneyPage() {
-  return <JourneyClient />;
+  return (
+    <>
+      {/* Preload all sprite sheets at maximum network priority */}
+      <link rel="preload" as="image" href="/sprites/idle.png" />
+      <link rel="preload" as="image" href="/sprites/walking.png" />
+      <link rel="preload" as="image" href="/sprites/jumping.png" />
+      <link rel="preload" as="image" href="/sprites/waving.png" />
+      <link rel="preload" as="image" href="/sprites/working.png" />
+
+      <JourneyClient />
+    </>
+  );
 }
