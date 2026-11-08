@@ -25,7 +25,7 @@ export function getGeminiModel(apiKey: string, systemInstruction?: string, model
     generationConfig: {
       temperature: 0.35, // Low temperature for high factual accuracy
       topP: 0.9,
-      maxOutputTokens: 900,
+      maxOutputTokens: 2500, // Ample token capacity for complete, comprehensive Arabic & English responses
     },
   });
 }

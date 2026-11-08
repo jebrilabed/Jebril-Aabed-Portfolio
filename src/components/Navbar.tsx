@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import Link from "next/link";
 import { portfolioData } from "@/data/portfolio";
 import { useState, useEffect, useRef } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -83,18 +84,14 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
+    <>
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${!visible && !isOpen ? "-translate-y-full" : "translate-y-0"
+      className={`fixed top-0 w-full z-50 border-b border-outline-variant transition-all duration-500 ${!visible && !isOpen ? "-translate-y-full" : "translate-y-0"
         } ${scrolled || isOpen
-          ? "bg-background/90 backdrop-blur-xl border-b border-outline-variant shadow-[0_0_40px_rgba(0,0,0,0.1)] py-4"
+          ? "bg-background/90 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.1)] py-4"
           : "bg-transparent py-6"
         }`}
     >
-      {/* Dynamic Scroll Progress Bar */}
-      <motion.div
-        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
-        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-primary shadow-[0_0_10px_rgba(162,231,255,0.7)] pointer-events-none"
-      />
 
       <div className="flex justify-between items-center px-6 md:px-12 max-w-7xl mx-auto">
         <motion.div
@@ -144,6 +141,7 @@ export default function Navbar() {
 
         {/* Right CTA Group (Desktop) */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           <Link
             href="/journey"
             className="flex items-center gap-1.5 px-4 py-2 bg-secondary/10 hover:bg-secondary/20 text-secondary border border-secondary/30 rounded-full font-label text-[10px] tracking-[0.15em] uppercase transition-all duration-300 shadow-[0_0_15px_rgba(162,231,255,0.15)]"
@@ -167,7 +165,7 @@ export default function Navbar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none bg-surface-low/50 backdrop-blur-md rounded-full border border-outline-variant/20"
+          className="md:hidden z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background bg-surface-low/50 backdrop-blur-md rounded-full border border-outline-variant/20"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
@@ -226,6 +224,7 @@ export default function Navbar() {
                     </motion.a>
                   );
                 })}
+                <ThemeToggle variant="labeled" />
                 {/* Interactive Journey Mobile Link */}
                 <Link
                   href="/journey"
@@ -317,5 +316,15 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </nav>
+<div
+      aria-hidden="true"
+      className={"fixed top-0 left-0 right-0 z-[60] h-[2px] bg-primary/25 pointer-events-none transition-opacity duration-300 " + (visible || isOpen ? "opacity-0" : "opacity-100")}
+    >
+      <motion.div
+        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
+        className="h-full w-full bg-gradient-to-r from-primary via-secondary to-primary shadow-[0_0_10px_rgba(162,231,255,0.7)]"
+      />
+    </div>
+    </>
   );
 }

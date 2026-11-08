@@ -34,7 +34,7 @@ export default function FloatingButton({ onClick, isOpen }: FloatingButtonProps)
         onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="group relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-surface-low via-surface-container to-surface-high border border-primary/40 hover:border-primary text-foreground shadow-[0_8px_30px_rgba(0,0,0,0.5),0_0_20px_rgba(196,192,255,0.2)] hover:shadow-[0_8px_35px_rgba(196,192,255,0.35)] transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/60 cursor-pointer overflow-hidden"
+        className="group relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-surface-low via-surface-container to-surface-high border border-primary/40 hover:border-primary text-foreground shadow-[var(--floating-button-shadow)] hover:shadow-[0_8px_35px_rgba(196,192,255,0.35)] transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary/60 cursor-pointer overflow-hidden"
         aria-label={isOpen ? "Close AI Assistant" : "Open AI Assistant"}
         aria-expanded={isOpen}
       >
@@ -65,4 +65,3 @@ export default function FloatingButton({ onClick, isOpen }: FloatingButtonProps)
     </div>
   );
 }
-

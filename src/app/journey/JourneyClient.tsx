@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const SPRITE_URLS = [
   "/sprites/idle.png",
@@ -103,6 +104,9 @@ export default function JourneyClient() {
       ) : (
         <LoadingScreen progress={progress} message="Loading Character Sprites…" />
       )}
+      <div className="fixed top-16 right-5 z-[70]">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }

@@ -96,7 +96,7 @@ export default function Projects() {
               <span className="relative z-10">{tab.label}</span>
               <span
                 className={`relative z-10 text-[10px] px-1.5 py-0.2 rounded-full ${
-                  isActive ? "bg-primary text-background font-black" : "bg-surface-high text-on-surface-variant"
+                  isActive ? "bg-primary text-on-primary-container font-black" : "bg-surface-high text-on-surface-variant"
                 }`}
               >
                 {count}
@@ -178,7 +178,7 @@ export default function Projects() {
                         href={project.liveDemo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-xl bg-secondary text-background font-label text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform"
+                        className="px-4 py-2 rounded-xl bg-secondary text-on-primary-container font-label text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-lg hover:scale-105 transition-transform"
                         aria-label={`Open live demo of ${project.name}`}
                       >
                         <span className="material-symbols-outlined text-sm">open_in_new</span>
@@ -253,7 +253,7 @@ export default function Projects() {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.92 }}
-                      className="w-9 h-9 rounded-xl border border-outline-variant/30 bg-surface-container flex items-center justify-center hover:bg-secondary hover:text-background transition-all"
+                      className="w-9 h-9 rounded-xl border border-outline-variant/30 bg-surface-container flex items-center justify-center hover:bg-secondary hover:text-on-primary-container transition-all"
                       aria-label={`Open ${project.name} live demo`}
                       title="Live Demo"
                     >

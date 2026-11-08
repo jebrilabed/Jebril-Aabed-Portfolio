@@ -49,7 +49,7 @@ export default function ChatWindow({
     <div
       role="dialog"
       aria-label="Jebril's AI Assistant Chat Window"
-      className={`fixed z-50 transition-all duration-300 ease-out flex flex-col overflow-hidden bg-surface-low/95 border border-outline-variant/40 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7),0_0_30px_rgba(196,192,255,0.15)] rounded-2xl ${
+      className={`fixed z-50 transition-all duration-300 ease-out flex flex-col overflow-hidden bg-surface-low/95 border border-outline-variant/40 backdrop-blur-2xl shadow-[var(--chat-shadow)] rounded-2xl ${
         isMinimized
           ? "bottom-24 end-6 w-[340px] h-[58px]"
           : "bottom-4 end-4 sm:bottom-24 sm:end-6 w-[calc(100vw-2rem)] sm:w-[410px] h-[calc(100dvh-5rem)] sm:h-[600px] max-h-[640px]"
@@ -123,4 +123,3 @@ export default function ChatWindow({
     </div>
   );
 }
-

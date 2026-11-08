@@ -153,7 +153,32 @@ export default function AIChatWidget() {
 
       while (true) {
         const { value, done } = await reader.read();
-        if (done) break;
+        if (done) {
+          // Flush any remaining buffer text
+          if (buffer.trim()) {
+            const remainingLines = buffer.split("\n");
+            for (const line of remainingLines) {
+              const trimmed = line.trim();
+              if (trimmed && trimmed.startsWith("data:")) {
+                const dataStr = trimmed.replace(/^data:\s*/, "");
+                if (dataStr !== "[DONE]") {
+                  try {
+                    const parsed = JSON.parse(dataStr);
+                    if (parsed.text) accumulated += parsed.text;
+                  } catch {
+                    // Ignore
+                  }
+                }
+              }
+            }
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === assistantMsgId ? { ...msg, content: accumulated } : msg
+              )
+            );
+          }
+          break;
+        }
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split("\n");
