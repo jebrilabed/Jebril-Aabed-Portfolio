@@ -13,14 +13,15 @@ export interface StreamChatOptions {
 }
 
 /**
- * Initializes Gemini model instance with temperature and safety settings
+ * Initializes Gemini model instance with temperature, safety settings, and system instructions
  */
-export function getGeminiModel(apiKey: string) {
+export function getGeminiModel(apiKey: string, systemInstruction?: string) {
   const genAI = new GoogleGenerativeAI(apiKey);
-  const modelName = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+  const modelName = process.env.GEMINI_MODEL || "gemini-flash-latest";
 
   return genAI.getGenerativeModel({
     model: modelName,
+    systemInstruction: systemInstruction || undefined,
     generationConfig: {
       temperature: 0.35, // Low temperature for high factual accuracy
       topP: 0.9,
@@ -80,28 +81,11 @@ export async function streamChatResponse({
     parts: [{ text: msg.content }],
   }));
 
-  // 4. Initialize Gemini client
-  const model = getGeminiModel(apiKey);
+  // 4. Initialize Gemini client with native system instruction
+  const model = getGeminiModel(apiKey, systemInstruction);
 
   const chat = model.startChat({
-    history: [
-      {
-        role: "user",
-        parts: [{ text: `System Instructions and Knowledge:\n${systemInstruction}` }],
-      },
-      {
-        role: "model",
-        parts: [
-          {
-            text:
-              lang === "ar"
-                ? "مفهوم تماماً. أنا مساعد جبريل الذكي وسألتزم بكافة المعلومات المؤكدة والتعليمات بدقة."
-                : "Understood. I am Jebril's AI Assistant and will strictly follow all verified facts and rules.",
-          },
-        ],
-      },
-      ...recentHistory,
-    ],
+    history: recentHistory,
   });
 
   // 5. Create streaming response

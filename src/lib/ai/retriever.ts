@@ -93,7 +93,7 @@ async function getOrComputeDocEmbeddings(apiKey: string): Promise<Map<string, nu
   isEmbeddingInProgress = true;
   try {
     const ai = new GoogleGenerativeAI(apiKey);
-    const embeddingModelName = process.env.GOOGLE_EMBEDDING_MODEL || "text-embedding-004";
+    const embeddingModelName = process.env.GOOGLE_EMBEDDING_MODEL || "gemini-embedding-001";
     const model = ai.getGenerativeModel({ model: embeddingModelName });
 
     const embeddingsMap = new Map<string, number[]>();
@@ -152,7 +152,7 @@ export async function retrieveRelevantKnowledge(
       const docEmbeddings = await getOrComputeDocEmbeddings(apiKey);
       if (docEmbeddings && docEmbeddings.size > 0) {
         const ai = new GoogleGenerativeAI(apiKey);
-        const embeddingModelName = process.env.GOOGLE_EMBEDDING_MODEL || "text-embedding-004";
+        const embeddingModelName = process.env.GOOGLE_EMBEDDING_MODEL || "gemini-embedding-001";
         const model = ai.getGenerativeModel({ model: embeddingModelName });
         const queryEmbedRes = await model.embedContent(query);
         const queryVector = queryEmbedRes.embedding?.values;
