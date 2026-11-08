@@ -116,8 +116,8 @@ export default function AIChatWidget() {
     setMessages([...nextMessages, assistantPlaceholder]);
 
     try {
-      // Prepare payload for backend
-      const historyPayload = nextMessages.slice(-6).map((m) => ({
+      // Prepare payload for backend (send existing prior messages)
+      const historyPayload = messages.slice(-6).map((m) => ({
         role: m.role,
         content: m.content,
       }));

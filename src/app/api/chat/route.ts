@@ -87,10 +87,11 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err: unknown) {
-    console.error("[Chat API Error]:", err);
+    const errorMsg = (err as Error)?.message || String(err);
+    console.error("[Chat API Error]:", errorMsg);
     return NextResponse.json(
       {
-        error: "An unexpected error occurred while processing your request.",
+        error: errorMsg || "An unexpected error occurred while processing your request.",
         errorAr: "حدث خطأ غير متوقع أثناء معالجة رسالتك.",
       },
       { status: 500 }

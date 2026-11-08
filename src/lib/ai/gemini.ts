@@ -15,9 +15,9 @@ export interface StreamChatOptions {
 /**
  * Initializes Gemini model instance with temperature, safety settings, and system instructions
  */
-export function getGeminiModel(apiKey: string, systemInstruction?: string) {
+export function getGeminiModel(apiKey: string, systemInstruction?: string, modelOverride?: string) {
   const genAI = new GoogleGenerativeAI(apiKey);
-  const modelName = process.env.GEMINI_MODEL || "gemini-flash-latest";
+  const modelName = modelOverride || process.env.GEMINI_MODEL || "gemini-3.5-flash";
 
   return genAI.getGenerativeModel({
     model: modelName,
@@ -75,17 +75,40 @@ export async function streamChatResponse({
 
   const systemInstruction = formattedPrompt[0].content as string;
 
-  // 3. Prepare conversation history for Gemini (last 4 messages for concise context)
-  const recentHistory = history.slice(-4).map((msg) => ({
-    role: msg.role === "assistant" ? "model" : "user",
-    parts: [{ text: msg.content }],
-  }));
+  // 3. Prepare and sanitize conversation history for Gemini:
+  // - Google Gemini API rules:
+  //   1) First history message MUST have role 'user' (never 'model').
+  //   2) Roles MUST strictly alternate (user -> model -> user -> model).
+  //   3) The active query being sent should NOT be in history.
+  const validHistory: Array<{ role: "user" | "model"; parts: [{ text: string }] }> = [];
+
+  for (const msg of history) {
+    const role: "user" | "model" = msg.role === "assistant" ? "model" : "user";
+    // Discard any initial welcome message from the assistant
+    if (validHistory.length === 0 && role === "model") {
+      continue;
+    }
+    const last = validHistory[validHistory.length - 1];
+    if (last && last.role === role) {
+      last.parts[0].text += `\n${msg.content}`;
+    } else {
+      validHistory.push({
+        role,
+        parts: [{ text: msg.content }],
+      });
+    }
+  }
+
+  // If the last history turn is a 'user' message, pop it so we don't have consecutive user messages
+  if (validHistory.length > 0 && validHistory[validHistory.length - 1].role === "user") {
+    validHistory.pop();
+  }
 
   // 4. Initialize Gemini client with native system instruction
   const model = getGeminiModel(apiKey, systemInstruction);
 
   const chat = model.startChat({
-    history: recentHistory,
+    history: validHistory,
   });
 
   // 5. Create streaming response
