@@ -69,7 +69,7 @@ export default function ChatInput({
             disabled={!canSend}
             className={`p-2 rounded-lg flex items-center justify-center transition-all ${
               canSend
-                ? "bg-primary text-surface-lowest shadow-[0_0_12px_rgba(196,192,255,0.4)] hover:bg-primary/90 cursor-pointer"
+                ? "bg-primary text-primary-foreground shadow-[0_0_12px_rgba(196,192,255,0.4)] hover:bg-primary/90 cursor-pointer"
                 : "bg-surface-high text-on-surface-variant/40 cursor-not-allowed"
             }`}
             title="Send message (Enter)"
@@ -98,4 +98,3 @@ export default function ChatInput({
     </div>
   );
 }
-

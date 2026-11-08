@@ -84,14 +84,18 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <>
     <nav
-      className={`fixed top-0 w-full z-50 border-b border-outline-variant transition-all duration-500 ${!visible && !isOpen ? "-translate-y-full" : "translate-y-0"
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${!visible && !isOpen ? "-translate-y-full" : "translate-y-0"
         } ${scrolled || isOpen
-          ? "bg-background/90 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.1)] py-4"
+          ? "bg-background/90 backdrop-blur-xl border-b border-outline-variant shadow-[0_0_40px_rgba(0,0,0,0.1)] py-4"
           : "bg-transparent py-6"
         }`}
     >
+      {/* Dynamic Scroll Progress Bar */}
+      <motion.div
+        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
+        className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary via-secondary to-primary shadow-[0_0_10px_rgba(162,231,255,0.7)] pointer-events-none"
+      />
 
       <div className="flex justify-between items-center px-6 md:px-12 max-w-7xl mx-auto">
         <motion.div
@@ -316,15 +320,5 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </nav>
-<div
-      aria-hidden="true"
-      className={"fixed top-0 left-0 right-0 z-[60] h-[2px] bg-primary/25 pointer-events-none transition-opacity duration-300 " + (visible || isOpen ? "opacity-0" : "opacity-100")}
-    >
-      <motion.div
-        style={{ scaleX: scrollYProgress, transformOrigin: "0%" }}
-        className="h-full w-full bg-gradient-to-r from-primary via-secondary to-primary shadow-[0_0_10px_rgba(162,231,255,0.7)]"
-      />
-    </div>
-    </>
   );
 }

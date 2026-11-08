@@ -93,7 +93,7 @@ function AboutContent() {
           href={portfolioData.cvFile}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-primary/15 text-primary hover:bg-primary hover:text-on-primary-container transition-all font-label text-xs uppercase tracking-wider font-semibold shadow-sm"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-primary/15 text-primary hover:bg-primary hover:text-primary-foreground transition-all font-label text-xs uppercase tracking-wider font-semibold shadow-sm"
         >
           <span className="material-symbols-outlined text-sm">download</span>
           Download CV
@@ -221,7 +221,7 @@ function ProjectsContent() {
                   href={project.liveDemo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-7 h-7 flex items-center justify-center rounded-lg bg-secondary/15 text-secondary hover:bg-secondary hover:text-on-primary-container transition-all"
+                  className="w-7 h-7 flex items-center justify-center rounded-lg bg-secondary/15 text-secondary hover:bg-secondary hover:text-primary-foreground transition-all"
                   aria-label={`Open ${project.name} demo`}
                   title="Live Demo"
                 >
@@ -233,7 +233,7 @@ function ProjectsContent() {
                   href={project.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-7 h-7 flex items-center justify-center rounded-lg bg-primary/15 text-primary hover:bg-primary hover:text-on-primary-container transition-all"
+                  className="w-7 h-7 flex items-center justify-center rounded-lg bg-primary/15 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
                   aria-label={`View ${project.name} source code`}
                   title="Source Code"
                 >
@@ -533,7 +533,7 @@ function WorkstationContent({ onClose }: { onClose: () => void }) {
 
       <button
         onClick={onClose}
-        className="w-full py-2.5 rounded-xl bg-primary text-on-primary-container font-label text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shadow-lg"
+        className="w-full py-2.5 rounded-xl bg-primary text-primary-foreground font-label text-xs font-bold uppercase tracking-wider hover:opacity-90 transition-opacity shadow-lg"
       >
         Resume Exploring
       </button>

@@ -457,7 +457,7 @@ export default function Intel() {
                 <span className="relative z-10">{tab.label}</span>
                 <span
                   className={`relative z-10 text-[10px] px-1.5 py-0.2 rounded-full ${
-                    isActive ? "bg-primary text-on-primary-container font-black" : "bg-surface-high text-on-surface-variant"
+                    isActive ? "bg-primary text-primary-foreground font-black" : "bg-surface-high text-on-surface-variant"
                   }`}
                 >
                   {tab.count}
