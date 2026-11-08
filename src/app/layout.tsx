@@ -96,6 +96,7 @@ export const metadata: Metadata = {
 };
 
 // import DevelopmentNotice from "@/components/DevelopmentNotice";
+import AIChatWidget from "@/components/ai-assistant";
 
 export default function RootLayout({
   children,
@@ -112,6 +113,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className={`${manrope.variable} ${inter.variable} ${spaceGrotesk.variable} min-h-full flex flex-col bg-background text-foreground overflow-x-hidden`}>
         {/* <DevelopmentNotice /> */}
         {children}
+        <AIChatWidget />
       </body>
     </html>
   );
