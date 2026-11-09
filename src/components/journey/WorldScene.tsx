@@ -491,10 +491,10 @@ function GroundAndRoadLayer() {
         style={{
           width: "100%",
           height: 12,
-          background: "#2a3b50",
-          borderTop: "4px solid #60a5fa",
-          borderBottom: "2px solid #162230",
-          boxShadow: "0 -3px 16px rgba(96, 165, 250, 0.45)",
+          background: "var(--journey-curb)",
+          borderTop: "4px solid var(--journey-curb-edge)",
+          borderBottom: "2px solid var(--journey-road-edge)",
+          boxShadow: "0 -3px 16px var(--journey-curb-shadow)",
           position: "relative",
         }}
       >
@@ -507,7 +507,7 @@ function GroundAndRoadLayer() {
               top: 1,
               width: 16,
               height: 4,
-              background: i % 2 === 0 ? "rgba(96, 165, 250, 0.4)" : "rgba(162, 231, 255, 0.25)",
+              background: i % 2 === 0 ? "var(--journey-curb-shadow)" : "var(--journey-highlight)",
               borderRadius: 1,
             }}
           />
@@ -519,8 +519,8 @@ function GroundAndRoadLayer() {
         style={{
           width: "100%",
           height: 48,
-          background: "linear-gradient(to bottom, #1d2a3a 0%, #131c28 100%)",
-          borderBottom: "3px solid #0d141e",
+          background: "var(--journey-road-top)",
+          borderBottom: "3px solid var(--journey-road-edge)",
           position: "relative",
           display: "flex",
           alignItems: "center",
@@ -535,10 +535,10 @@ function GroundAndRoadLayer() {
               top: 20,
               width: 28,
               height: 4,
-              background: "#38bdf8",
+              background: "var(--journey-road-mark)",
               opacity: 0.75,
               borderRadius: 2,
-              boxShadow: "0 0 10px rgba(56, 189, 248, 0.6)",
+              boxShadow: "0 0 10px var(--journey-road-mark-glow)",
             }}
           />
         ))}
@@ -549,9 +549,9 @@ function GroundAndRoadLayer() {
         style={{
           width: "100%",
           height: ROAD_HEIGHT - 60,
-          background: "linear-gradient(to bottom, #101722 0%, #080c14 100%)",
+          background: "var(--journey-ground)",
           position: "relative",
-          borderTop: "1px solid rgba(255,255,255,0.05)",
+          borderTop: "1px solid var(--journey-ground-edge)",
         }}
       >
         {Array.from({ length: 45 }, (_, i) => (
@@ -563,7 +563,7 @@ function GroundAndRoadLayer() {
               top: 15 + (i % 3) * 22,
               width: 34,
               height: 2,
-              background: "rgba(135, 129, 255, 0.18)",
+              background: "var(--journey-ground-accent)",
             }}
           />
         ))}
@@ -587,13 +587,14 @@ function Stars() {
       {STATIC_STARS.map((s, i) => (
         <div
           key={i}
+          className="journey-star"
           style={{
             position: "absolute",
             left: s.x,
             top: s.y,
             width: s.size,
             height: s.size,
-            background: i % 4 === 0 ? "#a2e7ff" : "#c4c0ff",
+            background: i % 4 === 0 ? "var(--journey-star-cyan)" : "var(--journey-star-purple)",
             opacity: s.opacity,
             imageRendering: "pixelated",
             animation: `twinkle 2.8s ${s.delay}s ease-in-out infinite alternate`,
@@ -632,13 +633,13 @@ function ZoneSignpost({ zone, isActive }: { zone: Zone; isActive: boolean }) {
     >
       <div
         style={{
-          background: isActive ? "rgba(196,192,255,0.22)" : "rgba(22,22,28,0.88)",
-          border: isActive ? "2px solid rgba(196,192,255,0.8)" : "2px solid rgba(70,69,85,0.45)",
+          background: isActive ? "var(--journey-active-zone-bg)" : "var(--journey-zone-bg)",
+          border: isActive ? "2px solid var(--journey-active-zone-border)" : "2px solid var(--journey-zone-border)",
           borderRadius: 8,
           padding: "5px 12px",
           marginBottom: 2,
           backdropFilter: "blur(6px)",
-          boxShadow: isActive ? "0 0 20px rgba(196,192,255,0.4)" : "none",
+          boxShadow: isActive ? "0 0 20px var(--journey-active-zone-glow)" : "none",
           transition: "all 0.3s ease",
           whiteSpace: "nowrap",
         }}
@@ -651,7 +652,7 @@ function ZoneSignpost({ zone, isActive }: { zone: Zone; isActive: boolean }) {
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.12em",
-            color: isActive ? "#c4c0ff" : "#c7c4d8",
+            color: isActive ? "var(--journey-active-zone-text)" : "var(--journey-zone-text)",
           }}
         >
           {zone.label}
@@ -661,7 +662,7 @@ function ZoneSignpost({ zone, isActive }: { zone: Zone; isActive: boolean }) {
         style={{
           width: 3,
           height: 38,
-          background: isActive ? "#c4c0ff" : "#464555",
+          background: isActive ? "var(--journey-active-zone-text)" : "var(--journey-zone-border)",
           margin: "0 auto",
         }}
       />
@@ -682,8 +683,8 @@ function InteractionHint({ zone }: { zone: Zone }) {
         display: "flex",
         alignItems: "center",
         gap: 10,
-        background: "rgba(19,19,26,0.92)",
-        border: "1px solid rgba(196,192,255,0.45)",
+        background: "var(--journey-glass)",
+        border: "1px solid var(--journey-glass-border)",
         borderRadius: 100,
         padding: "8px 18px",
         backdropFilter: "blur(12px)",
@@ -696,21 +697,21 @@ function InteractionHint({ zone }: { zone: Zone }) {
           fontFamily: "var(--font-space-grotesk)",
           fontSize: 11,
           fontWeight: 800,
-          color: "#0f0f18",
-          background: "#c4c0ff",
+          color: "var(--journey-kbd-text)",
+          background: "var(--journey-active-zone-text)",
           borderRadius: 6,
           padding: "2px 8px",
           letterSpacing: "0.08em",
         }}
       >
-        E / ث
+        E
       </kbd>
       <span
         style={{
           fontFamily: "var(--font-space-grotesk)",
           fontSize: 12,
           fontWeight: 600,
-          color: "#e4e1e9",
+          color: "var(--journey-text)",
           letterSpacing: "0.06em",
           textTransform: "uppercase",
         }}
@@ -771,10 +772,10 @@ function WorldRadarTracker({
 function ControlsHUD({ visible }: { visible: boolean }) {
   if (!visible) return null;
   const controls = [
-    { key: "← → / A D (ش ي)", desc: "Move" },
-    { key: "Space / W (ص)", desc: "Jump" },
-    { key: "E (ث)", desc: "Interact" },
-    { key: "F (ب)", desc: "Wave" },
+    { key: "← → / A D", desc: "Move" },
+    { key: "Space / W", desc: "Jump" },
+    { key: "E", desc: "Interact" },
+    { key: "F", desc: "Wave" },
     { key: "Click Road", desc: "Walk There" },
   ];
 
@@ -785,8 +786,8 @@ function ControlsHUD({ visible }: { visible: boolean }) {
         top: 68,
         left: 16,
         zIndex: 30,
-        background: "rgba(19,19,24,0.85)",
-        border: "1px solid rgba(70,69,85,0.3)",
+        background: "var(--journey-glass)",
+        border: "1px solid var(--journey-glass-border)",
         borderRadius: 14,
         padding: "10px 14px",
         backdropFilter: "blur(12px)",
@@ -798,7 +799,7 @@ function ControlsHUD({ visible }: { visible: boolean }) {
         style={{
           fontFamily: "var(--font-space-grotesk)",
           fontSize: 9,
-          color: "#a2e7ff",
+          color: "var(--journey-ui-accent)",
           letterSpacing: "0.2em",
           textTransform: "uppercase",
           fontWeight: 700,
@@ -822,16 +823,16 @@ function ControlsHUD({ visible }: { visible: boolean }) {
             style={{
               fontFamily: "var(--font-space-grotesk)",
               fontSize: 9,
-              color: "#c4c0ff",
-              background: "rgba(196,192,255,0.1)",
-              border: "1px solid rgba(196,192,255,0.25)",
+              color: "var(--journey-ui-accent)",
+              background: "var(--journey-kbd-bg)",
+              border: "1px solid var(--journey-kbd-border)",
               borderRadius: 4,
               padding: "1px 6px",
             }}
           >
             {c.key}
           </kbd>
-          <span style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 10, color: "#c7c4d8" }}>
+          <span style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 10, color: "var(--journey-text-muted)" }}>
             {c.desc}
           </span>
         </div>
@@ -885,8 +886,8 @@ function QuickNav({ onSelect }: { onSelect: (panel: PanelType) => void }) {
               alignItems: "center",
               justifyContent: "center",
               borderRadius: 12,
-              background: "rgba(19,19,26,0.85)",
-              border: "1px solid rgba(70,69,85,0.35)",
+              background: "var(--journey-glass)",
+              border: "1px solid var(--journey-glass-border)",
               backdropFilter: "blur(12px)",
               transition: "all 0.2s",
             }}
@@ -1078,8 +1079,94 @@ export default function WorldScene() {
   };
 
   return (
-    <>
+    <div className="journey-scene">
       <style>{`
+        .journey-scene {
+          --journey-sky: linear-gradient(to bottom, #05060d 0%, #0d0f1a 50%, #131318 100%);
+          --journey-sky-glow: radial-gradient(ellipse at 25% 25%, rgba(135,129,255,0.1), transparent 60%), radial-gradient(ellipse at 75% 20%, rgba(60,215,255,0.08), transparent 55%);
+          --journey-mountain: rgba(24,30,52,0.75);
+          --journey-mountain-alt: rgba(20,26,46,0.75);
+          --journey-mountain-deep: rgba(18,24,42,0.75);
+          --journey-mountain-peak: rgba(162, 231, 255, 0.3);
+          --journey-star-cyan: #a2e7ff;
+          --journey-star-purple: #c4c0ff;
+          --journey-curb: #2a3b50;
+          --journey-curb-edge: #60a5fa;
+          --journey-curb-shadow: rgba(96, 165, 250, 0.45);
+          --journey-road-top: linear-gradient(to bottom, #1d2a3a 0%, #131c28 100%);
+          --journey-road-edge: #0d141e;
+          --journey-road-mark: #38bdf8;
+          --journey-road-mark-glow: rgba(56, 189, 248, 0.6);
+          --journey-ground: linear-gradient(to bottom, #101722 0%, #080c14 100%);
+          --journey-ground-edge: rgba(255,255,255,0.05);
+          --journey-ground-accent: rgba(135, 129, 255, 0.18);
+          --journey-zone-bg: rgba(22,22,28,0.88);
+          --journey-zone-border: rgba(70,69,85,0.45);
+          --journey-zone-text: #c7c4d8;
+          --journey-active-zone-bg: rgba(196,192,255,0.22);
+          --journey-active-zone-border: rgba(196,192,255,0.8);
+          --journey-active-zone-text: #c4c0ff;
+          --journey-active-zone-glow: rgba(196,192,255,0.4);
+          --journey-glass: rgba(19,19,26,0.92);
+          --journey-glass-border: rgba(70,69,85,0.45);
+          --journey-text: #e4e1e9;
+          --journey-text-muted: #c7c4d8;
+          --journey-ui-accent: #a2e7ff;
+          --journey-kbd-text: #0f0f18;
+          --journey-kbd-bg: rgba(196,192,255,0.1);
+          --journey-kbd-border: rgba(196,192,255,0.25);
+          --journey-highlight: rgba(196,192,255,0.35);
+          --journey-highlight-glow: rgba(196,192,255,0.4);
+          --journey-side-highlight: rgba(196,192,255,0.06);
+          --journey-side-highlight-border: rgba(196,192,255,0.25);
+          --journey-backdrop: rgba(0,0,0,0.65);
+          --journey-panel-shadow: 0 30px 90px rgba(0,0,0,0.55);
+        }
+        :root[data-theme="light"] .journey-scene {
+          --journey-sky: linear-gradient(to bottom, #dff3ff 0%, #eef8ff 48%, #f7f6fa 100%);
+          --journey-sky-glow: radial-gradient(ellipse at 25% 25%, rgba(255,255,255,0.75), transparent 60%), radial-gradient(ellipse at 75% 20%, rgba(255,224,158,0.32), transparent 55%);
+          --journey-mountain: rgba(123,158,185,0.62);
+          --journey-mountain-alt: rgba(145,176,197,0.66);
+          --journey-mountain-deep: rgba(113,151,179,0.62);
+          --journey-mountain-peak: rgba(255,255,255,0.72);
+          --journey-star-cyan: #7aa9c5;
+          --journey-star-purple: #9c8acb;
+          --journey-curb: #b7c8d6;
+          --journey-curb-edge: #648fb5;
+          --journey-curb-shadow: rgba(72, 118, 153, 0.22);
+          --journey-road-top: linear-gradient(to bottom, #dce5ec 0%, #cbd8e2 100%);
+          --journey-road-edge: #a9bac8;
+          --journey-road-mark: #6e9fbe;
+          --journey-road-mark-glow: rgba(72, 118, 153, 0.28);
+          --journey-ground: linear-gradient(to bottom, #e6edf2 0%, #d7e1e9 100%);
+          --journey-ground-edge: rgba(75,95,115,0.16);
+          --journey-ground-accent: rgba(89,75,198,0.16);
+          --journey-zone-bg: rgba(255,255,255,0.92);
+          --journey-zone-border: rgba(79,72,96,0.38);
+          --journey-zone-text: #514d5b;
+          --journey-active-zone-bg: rgba(89,75,198,0.13);
+          --journey-active-zone-border: rgba(89,75,198,0.58);
+          --journey-active-zone-text: #594bc6;
+          --journey-active-zone-glow: rgba(89,75,198,0.2);
+          --journey-glass: rgba(255,255,255,0.9);
+          --journey-glass-border: rgba(79,72,96,0.26);
+          --journey-text: #24222b;
+          --journey-text-muted: #625e6d;
+          --journey-ui-accent: #08748c;
+          --journey-kbd-text: #ffffff;
+          --journey-kbd-bg: rgba(89,75,198,0.1);
+          --journey-kbd-border: rgba(89,75,198,0.28);
+          --journey-highlight: rgba(89,75,198,0.24);
+          --journey-highlight-glow: rgba(89,75,198,0.2);
+          --journey-side-highlight: rgba(89,75,198,0.07);
+          --journey-side-highlight-border: rgba(89,75,198,0.28);
+          --journey-backdrop: rgba(28,26,36,0.42);
+          --journey-panel-shadow: 0 24px 70px rgba(35,29,57,0.22);
+        }
+        :root[data-theme="light"] .journey-star { opacity: 0 !important; }
+        :root[data-theme="light"] .journey-scene .text-emerald-400 { color: #167447; }
+        :root[data-theme="light"] .journey-scene .text-purple-400 { color: #7042a6; }
+        :root[data-theme="light"] .journey-scene .text-amber-400 { color: #9a5c00; }
         @keyframes twinkle {
           from { opacity: 0.2; transform: scale(0.9); }
           to { opacity: 0.95; transform: scale(1.1); }
@@ -1115,8 +1202,8 @@ export default function WorldScene() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 18px",
-          background: "rgba(19,19,26,0.92)",
-          borderBottom: "1px solid rgba(70,69,85,0.3)",
+          background: "var(--journey-glass)",
+          borderBottom: "1px solid var(--journey-glass-border)",
           backdropFilter: "blur(16px)",
         }}
       >
@@ -1176,7 +1263,7 @@ export default function WorldScene() {
           top: 56,
           bottom: 0,
           overflow: "hidden",
-          background: "linear-gradient(to bottom, #05060d 0%, #0d0f1a 50%, #131318 100%)",
+          background: "var(--journey-sky)",
           userSelect: "none",
           cursor: "crosshair",
         }}
@@ -1196,8 +1283,7 @@ export default function WorldScene() {
             style={{
               position: "absolute",
               inset: 0,
-              background:
-                "radial-gradient(ellipse at 25% 25%, rgba(135,129,255,0.1), transparent 60%), radial-gradient(ellipse at 75% 20%, rgba(60,215,255,0.08), transparent 55%)",
+              background: "var(--journey-sky-glow)",
             }}
           />
           <Stars />
@@ -1215,14 +1301,14 @@ export default function WorldScene() {
             zIndex: 2,
           }}
         >
-          <PixelMountain x={100} height={230} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={420} height={170} color="rgba(20,26,46,0.75)" />
-          <PixelMountain x={800} height={250} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={1220} height={190} color="rgba(18,24,42,0.75)" />
-          <PixelMountain x={1640} height={240} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={2060} height={160} color="rgba(20,26,46,0.75)" />
-          <PixelMountain x={2480} height={220} color="rgba(24,30,52,0.75)" />
-          <PixelMountain x={2880} height={190} color="rgba(18,24,42,0.75)" />
+          <PixelMountain x={100} height={230} color="var(--journey-mountain)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={420} height={170} color="var(--journey-mountain-alt)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={800} height={250} color="var(--journey-mountain)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={1220} height={190} color="var(--journey-mountain-deep)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={1640} height={240} color="var(--journey-mountain)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={2060} height={160} color="var(--journey-mountain-alt)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={2480} height={220} color="var(--journey-mountain)" peakColor="var(--journey-mountain-peak)" />
+          <PixelMountain x={2880} height={190} color="var(--journey-mountain-deep)" peakColor="var(--journey-mountain-peak)" />
         </div>
 
         {/* ── PARALLAX LAYER 3: Main World, Road, Trees & Interactive Objects (1.0x) ── */}
@@ -1271,9 +1357,9 @@ export default function WorldScene() {
               bottom: ROAD_HEIGHT,
               width: 260,
               height: 4,
-              background: "rgba(196,192,255,0.35)",
+              background: "var(--journey-highlight)",
               borderRadius: 2,
-              boxShadow: "0 0 10px rgba(196,192,255,0.4)",
+              boxShadow: "0 0 10px var(--journey-highlight-glow)",
               zIndex: 7,
             }}
             aria-hidden="true"
@@ -1324,14 +1410,14 @@ export default function WorldScene() {
               bottom: ROAD_HEIGHT,
               width: 70,
               height: 85,
-              background: "rgba(22,22,30,0.85)",
-              border: "2px solid rgba(196,192,255,0.4)",
+              background: "var(--journey-glass)",
+              border: "2px solid var(--journey-active-zone-border)",
               borderRadius: 8,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 28,
-              boxShadow: "0 0 14px rgba(196,192,255,0.25)",
+              boxShadow: "0 0 14px var(--journey-active-zone-glow)",
               zIndex: 7,
             }}
             aria-hidden="true"
@@ -1426,15 +1512,15 @@ export default function WorldScene() {
                 height: 220,
                 background:
                   activeZone?.id === zone.id
-                    ? "linear-gradient(to top, rgba(196,192,255,0.06), transparent)"
+                    ? "linear-gradient(to top, var(--journey-side-highlight), transparent)"
                     : "transparent",
                 borderLeft:
                   activeZone?.id === zone.id
-                    ? "1px dashed rgba(196,192,255,0.25)"
+                    ? "1px dashed var(--journey-side-highlight-border)"
                     : "none",
                 borderRight:
                   activeZone?.id === zone.id
-                    ? "1px dashed rgba(196,192,255,0.25)"
+                    ? "1px dashed var(--journey-side-highlight-border)"
                     : "none",
                 transition: "all 0.3s ease",
                 pointerEvents: "none",
@@ -1463,6 +1549,6 @@ export default function WorldScene() {
         onClose={handleClosePanel}
         onNavigate={handleNavigateSection}
       />
-    </>
+    </div>
   );
 }

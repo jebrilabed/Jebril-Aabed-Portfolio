@@ -199,7 +199,7 @@ function ProjectsContent() {
               sizes="(max-width: 600px) 100vw, 360px"
             />
             {project.liveDemo && (
-              <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] font-label text-emerald-400 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-wider">
+              <div className="absolute top-2 right-2 flex items-center gap-1 text-[9px] font-label text-emerald-300 bg-black/75 backdrop-blur-md px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-wider">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 Live Demo
               </div>
@@ -457,7 +457,7 @@ function WorkstationContent({ onClose }: { onClose: () => void }) {
 
       {/* Terminal Window Box */}
       <div className="p-4 rounded-2xl bg-surface-lowest/95 border border-primary/30 font-mono text-xs shadow-inner">
-        <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10">
+        <div className="flex items-center justify-between pb-2 mb-3 border-b border-outline-variant/30">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80 inline-block" />
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
@@ -487,7 +487,7 @@ function WorkstationContent({ onClose }: { onClose: () => void }) {
             <p>
               <span className="text-amber-400 font-bold">Location:</span> Gaza, Palestine
             </p>
-            <p className="text-[10px] text-primary/70 pt-2 border-t border-white/5">
+            <p className="text-[10px] text-primary/70 pt-2 border-t border-outline-variant/20">
               &quot;Writing clean, high-performance web code with pixel precision.&quot;
             </p>
           </div>
@@ -567,7 +567,8 @@ export default function InfoPanel({ panel, onClose, onNavigate }: InfoPanelProps
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/65 backdrop-blur-md z-40"
+            className="fixed inset-0 backdrop-blur-md z-40"
+            style={{ background: "var(--journey-backdrop)" }}
             onClick={handleClose}
             aria-hidden="true"
           />
@@ -579,7 +580,8 @@ export default function InfoPanel({ panel, onClose, onNavigate }: InfoPanelProps
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 20 }}
             transition={{ type: "spring", stiffness: 450, damping: 32 }}
-            className="fixed inset-x-4 bottom-4 md:inset-auto md:right-8 md:bottom-8 md:w-[480px] z-50 max-h-[84vh] flex flex-col rounded-3xl bg-surface-low/95 backdrop-blur-2xl border border-outline-variant/40 shadow-[0_30px_90px_rgba(0,0,0,0.75)] overflow-hidden"
+            className="fixed inset-x-4 bottom-4 md:inset-auto md:right-8 md:bottom-8 md:w-[480px] z-50 max-h-[84vh] flex flex-col rounded-3xl bg-surface-low/95 backdrop-blur-2xl border border-outline-variant/40 overflow-hidden"
+            style={{ boxShadow: "var(--journey-panel-shadow)" }}
             role="dialog"
             aria-modal="true"
             aria-label={panel ? PANEL_TITLES[panel] : ""}
