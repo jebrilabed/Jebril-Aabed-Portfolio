@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ai:server": "backend\\venv\\Scripts\\python backend\\main.py",
+    "ai:test": "backend\\venv\\Scripts\\python backend\\test_chat.py"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

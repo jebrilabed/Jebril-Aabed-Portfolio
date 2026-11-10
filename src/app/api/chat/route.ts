@@ -72,7 +72,36 @@ export async function POST(req: NextRequest) {
       content: item.content.slice(0, 500),
     }));
 
-    // 3. Initiate Streaming Chat Response
+    // 3. Initiate Streaming Chat Response (Forward to Python LangChain Backend if configured)
+    const pythonBackendUrl = process.env.PYTHON_BACKEND_URL?.trim();
+    if (pythonBackendUrl) {
+      try {
+        const pyRes = await fetch(`${pythonBackendUrl.replace(/\/$/, "")}/api/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: rawMessage,
+            history: sanitizedHistory,
+          }),
+        });
+
+        if (pyRes.ok && pyRes.body) {
+          return new Response(pyRes.body, {
+            headers: {
+              "Content-Type": "text/event-stream; charset=utf-8",
+              "Cache-Control": "no-cache, no-transform",
+              Connection: "keep-alive",
+              "X-Accel-Buffering": "no",
+            },
+          });
+        }
+        console.warn(`[Python Backend Error ${pyRes.status}]: Falling back to TypeScript engine.`);
+      } catch (pyErr) {
+        console.warn("[Python Backend Unreachable]: Falling back to TypeScript engine.", pyErr);
+      }
+    }
+
+    // Fallback: Local TypeScript Gemini RAG engine
     const stream = await streamChatResponse({
       message: rawMessage,
       history: sanitizedHistory,
