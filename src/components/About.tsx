@@ -119,7 +119,7 @@ export default function About() {
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="block font-headline text-4xl font-extrabold text-secondary group-hover:scale-105 transition-transform">
-                    6+
+                    7+
                   </span>
                   <span className="material-symbols-outlined text-secondary/60 text-xl group-hover:rotate-12 transition-transform">
                     rocket

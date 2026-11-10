@@ -34,22 +34,24 @@ Features:
   {
     id: "project-payperview",
     category: "projects",
-    titleEn: "PayPerView – AI-Powered Content Platform",
-    titleAr: "منصة PayPerView المدعومة بالذكاء الاصطناعي",
-    contentEn: `PayPerView is an innovative AI-driven digital platform.
+    titleEn: "PayPerView – AI-Powered Influencer Marketing Platform",
+    titleAr: "منصة PayPerView للتسويق عبر المؤثرين بالذكاء الاصطناعي",
+    contentEn: `PayPerView is a full-stack influencer marketing platform connecting brands with content creators through pay-per-view campaigns.
 Jebril's Role & Contributions:
-- Role: Frontend & AI Integration Developer.
-- Technologies: FastAPI, LangChain, Google Gemini, Retrieval-Augmented Generation (RAG), ChromaDB, React/Next.js.
-- Responsibilities: Designed and built responsive frontend user interfaces, integrated LangChain orchestration pipelines with ChromaDB vector search to retrieve relevant content for users, and connected the client to FastAPI endpoints.
-- Important note: Jebril contributed specifically as Frontend and AI integration developer on the team without claiming sole ownership of the entire platform backend infrastructure.`,
-    contentAr: `منصة PayPerView هي منصة رقمية متطورة مدعومة بتقنيات الذكاء الاصطناعي التوليدي:
-- دور جبريل ومسؤولياته: مطور واجهات أمامية وتكامل ذكاء اصطناعي (Frontend & AI Integration Developer).
-- التقنيات المستخدمة: FastAPI، و LangChain، و Google Gemini، و RAG، و ChromaDB، و React/Next.js.
-- المهام المنجزة: تطوير واجهات المستخدم التفاعلية، وربط مسارات LangChain مع استرجاع المتجهات عبر ChromaDB، وربط الواجهات بخدمات FastAPI لتوفير تجربة استعلام وبحث ذكية.
-- ملاحظة هامة: كانت مسؤوليته محددة في تطوير الواجهات وتكامل الذكاء الاصطناعي ضمن الفريق دون ادعاء ملكية البنية التحتية الخلفية بأكملها.`,
+- Role: AI Engineer & Frontend Team Lead.
+- Technologies: Next.js, React, Tailwind CSS, Python, FastAPI, LangChain, Google Gemini, Retrieval-Augmented Generation (RAG), ChromaDB, MongoDB.
+- Responsibilities: Led frontend development and built AI-powered features for campaign analysis, recommendations, and intelligent conversations using RAG and vector retrieval.`,
+    contentAr: `منصة PayPerView هي منصة متكاملة للتسويق عبر المؤثرين تربط العلامات التجارية بصناع المحتوى بنظام الدفع مقابل المشاهدة (Pay-per-view):
+- دور جبريل ومسؤولياته: مهندس ذكاء اصطناعي وقائد فريق الواجهات الأمامية (AI Engineer & Frontend Team Lead).
+- التقنيات المستخدمة: Next.js، و React، و Tailwind CSS، و Python، و FastAPI، و LangChain، و Google Gemini، و RAG، و ChromaDB، و MongoDB.
+- المهام المنجزة: قيادة تطوير الواجهات الأمامية وبناء ميزات مدعومة بالذكاء الاصطناعي لتحليل الحملات الإعلانية، والتوصيات الذكية، والمحادثات المعتمدة على RAG والبحث الدلالي.`,
     tags: [
-      "payperview", "ai", "rag", "chromadb", "langchain", "fastapi", "gemini",
-      "باي بير فيو", "ذكاء اصطناعي", "لانغ تشين", "تضمين", "بحث دلالي"
+      "payperview", "ai", "rag", "chromadb", "langchain", "fastapi", "gemini", "mongodb", "influencer",
+      "باي بير فيو", "ذكاء اصطناعي", "لانغ تشين", "تضمين", "بحث دلالي", "تسويق"
+    ],
+    links: [
+      { labelEn: "Live Demo", labelAr: "المعاينة الحية", url: "https://payperview.apps.taqat.academy/en" },
+      { labelEn: "GitHub Organization", labelAr: "مستودع الكود", url: "https://github.com/PayPerView1" },
     ],
   },
   {
