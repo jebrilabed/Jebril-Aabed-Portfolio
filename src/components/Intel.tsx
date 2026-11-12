@@ -69,6 +69,24 @@ const INSTITUTION_CONFIG: Record<string, InstitutionMeta> = {
     badgeText: "text-primary",
     badgeBorder: "border-primary/20",
   },
+  DataCamp: {
+    initials: "DC",
+    icon: "psychology",
+    borderHover: "hover:border-emerald-400/40",
+    glowHover: "group-hover:shadow-[0_0_30px_rgba(52,211,153,0.12)]",
+    badgeBg: "bg-emerald-500/10",
+    badgeText: "text-emerald-300",
+    badgeBorder: "border-emerald-500/20",
+  },
+  TAQAT: {
+    initials: "TQ",
+    icon: "auto_awesome",
+    borderHover: "hover:border-amber-400/40",
+    glowHover: "group-hover:shadow-[0_0_30px_rgba(251,191,36,0.12)]",
+    badgeBg: "bg-amber-500/10",
+    badgeText: "text-amber-300",
+    badgeBorder: "border-amber-500/20",
+  },
 };
 
 const DEFAULT_META: InstitutionMeta = {
@@ -91,13 +109,18 @@ function getCertificateCategory(title: string, institution: string): "ai" | "web
   if (
     inst.includes("anthropic") ||
     inst.includes("langchain") ||
+    inst.includes("datacamp") ||
     t.includes("claude") ||
     t.includes("ai") ||
+    t.includes("mcp") ||
+    t.includes("model context protocol") ||
+    t.includes("subagents") ||
+    t.includes("agent skills") ||
     t.includes("python")
   ) {
     return "ai";
   }
-  if (t.includes("problem solving") || t.includes("competitive") || inst.includes("ieee")) {
+  if (t.includes("problem solving") || t.includes("competitive") || inst.includes("ieee") || t.includes("codemap")) {
     return "cs";
   }
   return "web";
@@ -105,6 +128,12 @@ function getCertificateCategory(title: string, institution: string): "ai" | "web
 
 function getCertificateTags(title: string, institution: string): string[] {
   const t = title.toLowerCase();
+  if (t.includes("mcp") || t.includes("model context protocol")) return ["MCP", "LLM Protocols", "AI Context"];
+  if (t.includes("subagents")) return ["Subagents", "AI Workflows", "Anthropic"];
+  if (t.includes("agent skills")) return ["Agent Skills", "AI Tooling", "Anthropic"];
+  if (t.includes("ai creative")) return ["AI Marketing", "Generative AI", "TAQAT"];
+  if (t.includes("ai coding")) return ["AI Coding", "LLM Dev", "TAQAT"];
+  if (t.includes("codemap")) return ["Algorithms", "Problem Solving", "TAQAT"];
   if (t.includes("claude code")) return ["Claude Code", "AI Agent", "Anthropic"];
   if (t.includes("claude 101")) return ["Claude AI", "Prompt Engineering", "LLMs"];
   if (t.includes("ai fluency")) return ["AI Frameworks", "Foundations", "Generative AI"];
