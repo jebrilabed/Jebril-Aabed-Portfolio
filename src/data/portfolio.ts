@@ -143,7 +143,7 @@ export const portfolioData = {
       title: "Problem Solving and Competitive Programming",
       period: "Oct, 2026",
       type: "certificate",
-      link: "",
+      link: "https://drive.google.com/file/d/1AsocZlhboTBgaEM6NwLOr_Hu7_GoYSHy/view?ts=6acccc8a",
     },
     {
       id: 11,
@@ -151,7 +151,7 @@ export const portfolioData = {
       title: "Certificate of completion: Claude 101",
       period: "Sep, 2026",
       type: "certificate",
-      link: "",
+      link: "https://verify.skilljar.com/c/d5zfwyscq73x",
     },
     {
       id: 12,
@@ -159,7 +159,7 @@ export const portfolioData = {
       title: "Foundation: Introduction to LangChain - Python",
       period: "Aug, 2026",
       type: "certificate",
-      link: "",
+      link: "https://academy.langchain.com/certificates/9urgaee93r",
     },
     {
       id: 13,
@@ -167,7 +167,7 @@ export const portfolioData = {
       title: "Python 101: Complete Python Programming Step by Step Guide",
       period: "Aug, 2026",
       type: "certificate",
-      link: "",
+      link: "https://www.udemy.com/certificate/UC-f520a6b0-a058-477c-bb47-5c6be76f5a37/",
     },
     {
       id: 14,
@@ -175,7 +175,7 @@ export const portfolioData = {
       title: "Certificate of Completion: AI Fluency Framework & Foundations",
       period: "Aug, 2026",
       type: "certificate",
-      link: "",
+      link: "https://verify.skilljar.com/c/7pbptf3c4nv5",
     },
     {
       id: 15,
@@ -183,7 +183,7 @@ export const portfolioData = {
       title: "Certificate of completion: Claude Code 101",
       period: "Aug, 2026",
       type: "certificate",
-      link: "",
+      link: "https://verify.skilljar.com/c/m7tcnd696m7s",
     },
     {
       id: 16,
@@ -191,7 +191,7 @@ export const portfolioData = {
       title: "Learn Next.js",
       period: "Apr 10, 2026",
       type: "certificate",
-      link: "",
+      link: "https://www.coursera.org/account/accomplishments/verify/7CSBP4ZL3PSF",
     },
     {
       id: 17,
@@ -207,7 +207,7 @@ export const portfolioData = {
       title: "Programming with JavaScript",
       period: "Jan 19, 2026",
       type: "certificate",
-      link: "",
+      link: "https://www.coursera.org/account/accomplishments/verify/GM7MPNWI4R4F",
     },
     {
       id: 19,
@@ -215,7 +215,23 @@ export const portfolioData = {
       title: "Build 11 JavaScript Applications and Web JavaScript BootCamp",
       period: "Jun 20, 2026",
       type: "certificate",
-      link: "",
+      link: "https://www.coursera.org/account/accomplishments/verify/7CSBP4ZL3PSF",
+    },
+    {
+      id: 20,
+      institution: "Udemy",
+      title: "ReactJs - The Complete ReactJs Course For Beginners",
+      period: "Mar 27, 2026",
+      type: "certificate",
+      link: "https://www.udemy.com/certificate/UC-91e51f2c-5311-48f1-88df-2e2d9ae32ecb/",
+    },
+    {
+      id: 19,
+      institution: "Datacamp",
+      title: "Introduction to SQL",
+      period: "Jun 20, 2026",
+      type: "certificate",
+      link: "https://www.datacamp.com/statement-of-accomplishment/course/33a9fc4c2ff0257908248edeb5c06ee7166653fb?raw=1",
     },
   ],
   projects: [
