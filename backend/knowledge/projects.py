@@ -116,6 +116,67 @@ PROJECTS_DOCUMENTS = [
         ]
     },
     {
+        "id": "project-baraa-store",
+        "category": "projects",
+        "title_en": "Bara’a Store – E-Commerce Platform",
+        "title_ar": "متجر براءة (Bara’a Store)",
+        "content_en": (
+            "Bara’a Store is an Arabic e-commerce platform dedicated to skincare, personal care, and home fragrance products.\n"
+            "Technologies: Next.js, TypeScript, PostgreSQL, Prisma ORM, Auth.js.\n"
+            "Features:\n"
+            "- Elegant Arabic RTL shopping experience.\n"
+            "- Customer account portal, shopping cart, and secure checkout.\n"
+            "- Comprehensive admin control panel for inventory, product variants, and orders.\n"
+            "- Live Demo: https://bara-a-store.vercel.app/\n"
+            "- GitHub: https://github.com/jebrilabed/bara-a-store.git"
+        ),
+        "content_ar": (
+            "متجر براءة (Bara’a Store) هو متجر إلكتروني عربي للعناية الشخصية والعطور المنزلية:\n"
+            "- التقنيات: Next.js، و TypeScript، و Prisma ORM، و PostgreSQL، و Auth.js.\n"
+            "- المميزات: واجهة RTL عربية أنيقة وسريعة، إدارة سلة المشتريات والحسابات، ولوحة إدارة كاملة للمنتجات والمخزون والطلبات.\n"
+            "- المعاينة الحية: https://bara-a-store.vercel.app/\n"
+            "- مستودع الكود: https://github.com/jebrilabed/bara-a-store.git"
+        ),
+        "tags": [
+            "baraa", "ecommerce", "nextjs", "skincare", "prisma", "postgresql",
+            "براءة", "متجر براءة", "تجارة إلكترونية"
+        ],
+        "links": [
+            {"label_en": "Live Demo", "label_ar": "المعاينة الحية", "url": "https://bara-a-store.vercel.app/"},
+            {"label_en": "GitHub Repository", "label_ar": "مستودع الكود", "url": "https://github.com/jebrilabed/bara-a-store.git"}
+        ]
+    },
+    {
+        "id": "project-educational-platform",
+        "category": "projects",
+        "title_en": "Educational Platform – Online Learning Web App",
+        "title_ar": "المنصة التعليمية (Educational Platform)",
+        "content_en": (
+            "Educational Platform is an interactive online learning website that provides users easy access to courses, learning roadmaps, and progress tracking.\n"
+            "Technologies: JavaScript (ES6+), HTML5, Tailwind CSS.\n"
+            "Features:\n"
+            "- Responsive, interactive web application for learning content navigation.\n"
+            "- Dynamic course directory and intuitive UI.\n"
+            "- Live Demo: https://soft-druid-b82fbd.netlify.app/\n"
+            "- GitHub: https://github.com/jebrilabed/Eucational-Platform.git"
+        ),
+        "content_ar": (
+            "المنصة التعليمية (Educational Platform) هي منصة ويب تعليمية تفاعلية تتيح للمستخدمين استعراض المساقات التعليمية ومتابعة التقدم بسهولة:\n"
+            "- التقنيات: JavaScript (ES6+)، و HTML5، و Tailwind CSS.\n"
+            "- المميزات: واجهة متجاوبة وسريعة، تصفح تفاعلي للدروس، وتصميم مريح للطلاب والمتعلمين.\n"
+            "- المعاينة الحية: https://soft-druid-b82fbd.netlify.app/\n"
+            "- مستودع الكود: https://github.com/jebrilabed/Eucational-Platform.git"
+        ),
+        "tags": [
+            "educational", "learning", "courses", "javascript", "tailwind",
+            "منصة تعليمية", "تعليم", "دورات", "كورسات"
+        ],
+        "links": [
+            {"label_en": "Live Demo", "label_ar": "المعاينة الحية", "url": "https://soft-druid-b82fbd.netlify.app/"},
+            {"label_en": "GitHub Repository", "label_ar": "مستودع الكود", "url": "https://github.com/jebrilabed/Eucational-Platform.git"}
+        ]
+    },
+    {
         "id": "project-portfolio",
         "category": "projects",
         "title_en": "Interactive Personal Portfolio",

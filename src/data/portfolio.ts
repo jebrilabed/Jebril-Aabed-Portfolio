@@ -226,8 +226,8 @@ export const portfolioData = {
       link: "https://www.udemy.com/certificate/UC-91e51f2c-5311-48f1-88df-2e2d9ae32ecb/",
     },
     {
-      id: 19,
-      institution: "Datacamp",
+      id: 21,
+      institution: "DataCamp",
       title: "Introduction to SQL",
       period: "Jun 20, 2026",
       type: "certificate",

@@ -109,7 +109,7 @@ function getCertificateCategory(title: string, institution: string): "ai" | "web
   if (
     inst.includes("anthropic") ||
     inst.includes("langchain") ||
-    inst.includes("datacamp") ||
+    (inst.includes("datacamp") && (t.includes("mcp") || t.includes("ai") || t.includes("model context"))) ||
     t.includes("claude") ||
     t.includes("ai") ||
     t.includes("mcp") ||
@@ -120,7 +120,14 @@ function getCertificateCategory(title: string, institution: string): "ai" | "web
   ) {
     return "ai";
   }
-  if (t.includes("problem solving") || t.includes("competitive") || inst.includes("ieee") || t.includes("codemap")) {
+  if (
+    t.includes("problem solving") ||
+    t.includes("competitive") ||
+    t.includes("sql") ||
+    t.includes("database") ||
+    inst.includes("ieee") ||
+    t.includes("codemap")
+  ) {
     return "cs";
   }
   return "web";
@@ -128,6 +135,7 @@ function getCertificateCategory(title: string, institution: string): "ai" | "web
 
 function getCertificateTags(title: string, institution: string): string[] {
   const t = title.toLowerCase();
+  if (t.includes("sql")) return ["SQL", "Databases", "DataCamp"];
   if (t.includes("mcp") || t.includes("model context protocol")) return ["MCP", "LLM Protocols", "AI Context"];
   if (t.includes("subagents")) return ["Subagents", "AI Workflows", "Anthropic"];
   if (t.includes("agent skills")) return ["Agent Skills", "AI Tooling", "Anthropic"];

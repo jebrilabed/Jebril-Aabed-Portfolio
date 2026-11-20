@@ -166,5 +166,27 @@ Features:
       { labelEn: "GitHub Repository", labelAr: "مستودع الكود", url: "https://github.com/jebrilabed/Jebril-Aabed-Portfolio.git" },
     ],
   },
+  {
+    id: "project-educational-platform",
+    category: "projects",
+    titleEn: "Educational Platform – Online Learning Web App",
+    titleAr: "المنصة التعليمية (Educational Platform)",
+    contentEn: `Educational Platform is an interactive online learning website that provides users easy access to courses, learning roadmaps, and progress tracking.
+Technologies: JavaScript (ES6+), HTML5, Tailwind CSS.
+Features:
+- Responsive, interactive web application for learning content navigation.
+- Dynamic course directory and intuitive UI.`,
+    contentAr: `المنصة التعليمية (Educational Platform) هي منصة ويب تعليمية تفاعلية تتيح للمستخدمين استعراض المساقات التعليمية ومتابعة التقدم بسهولة:
+- التقنيات: JavaScript (ES6+)، و HTML5، و Tailwind CSS.
+- المميزات: واجهة متجاوبة وسريعة، تصفح تفاعلي للدروس، وتصميم مريح للطلاب والمتعلمين.`,
+    tags: [
+      "educational", "learning", "courses", "javascript", "tailwind",
+      "منصة تعليمية", "تعليم", "دورات", "كورسات"
+    ],
+    links: [
+      { labelEn: "Live Demo", labelAr: "المعاينة الحية", url: "https://soft-druid-b82fbd.netlify.app/" },
+      { labelEn: "GitHub Repository", labelAr: "مستودع الكود", url: "https://github.com/jebrilabed/Eucational-Platform.git" },
+    ],
+  },
 ];
 

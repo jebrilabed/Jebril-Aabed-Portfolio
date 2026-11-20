@@ -155,7 +155,7 @@ export default function PixelCharacter({
                 backgroundSize: `${sheetDisplayW}px ${sheetDisplayH}px`,
                 backgroundPosition: "0px 0px",
                 backgroundRepeat: "no-repeat",
-                imageRendering: "pixelated",
+                imageRendering: state === "walking" ? "auto" : "pixelated",
                 animation: isCurrent
                   ? `sprite_anim_${state} ${duration}s steps(1, end) ${iterationCount} ${fillMode}`
                   : "none",
